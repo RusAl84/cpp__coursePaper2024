@@ -12,15 +12,15 @@ struct ExamsRecords {
 struct StudentNode
 {
 	char surName[20];
-	char name;
-	char middleName;
-	char faculty;
-	char department;
-	char group;
-	char recordÑardNumber;
-	char birthDateString;
-	bool sex; // true - ìàëü÷èê
-	// false - äåâî÷êà
+	char name[20];
+	char middleName[20];
+	char faculty[20];
+	char department[20];
+	char group[20];
+	char recordCardNumber[20];
+	char birthDateString[20];
+	bool sex[20]; // true - мальчик
+	// false - девочка
 	int startYear;
 
 	ExamsRecords examsRecordsData[9][10];
