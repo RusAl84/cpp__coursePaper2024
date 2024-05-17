@@ -4,7 +4,6 @@
 #include <string.h>
 #include <conio.h>
 #include <stdio.h>
-#include "ClassMenu.h"
 
 using namespace std;
 class ClassEdit
@@ -15,6 +14,26 @@ private:
 public:
 
 	ClassEdit() {};
+
+	static void drawLineUP(int size) {
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		string tmpString = " ";
+		for (int i = 0; i < size; i++)
+			tmpString += "_";
+		SetConsoleTextAttribute(hConsole, 15);
+		cout << tmpString << endl;
+	}
+
+	static void drawLineDown(int size) {
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		string tmpString = "|";
+		for (int i = 0; i < size - 1; i++)
+			tmpString += "_";
+		SetConsoleTextAttribute(hConsole, 15);
+		tmpString += "|";
+		cout << tmpString << endl;
+	}
+
 	void setLabel(string inString) {
 		label = inString;
 	}
@@ -127,7 +146,5 @@ public:
 		return flag;
 	}
 
-	friend void drawLineUP(int size);
-	friend void drawLineDown(int size);
 };
 
