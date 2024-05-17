@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="ClassMenu.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ClassMenu.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

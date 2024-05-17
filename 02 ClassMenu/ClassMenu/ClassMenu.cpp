@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include "ClassMenu.h"
 #include "ClassEdit.h"
 
 
@@ -33,24 +34,18 @@ int main()
     SetConsoleCP(1251); // Ввод с консоли в кодировке 1251
     SetConsoleOutputCP(1251);
     ClassEdit* ce = new  ClassEdit();
-    cout << "Эксперименты с вводом данных!\n";
+    cout << "Эксперименты с вводом пола и меню!\n";
 
-    string surName;
-    ce->setLabel("Введите фамилию. ");
-    surName = ce->setDataString("Русаков");
+	bool sex;
+	sex = editSex();
 
-    int day;
-    ce->setLabel("Введите день рождения. ");
-    day = ce->setDataInt(1, 31, 17);
+	string sexString;
+	if (sex)
+		sexString= мужской
 
-    int year;
-    ce->setLabel("Введите год рождения. ");
-    year = ce->setDataInt(1900, 2012, 1984);
 
-    delete ce;
 
-    cout << endl << "Введенная фамилия: " << surName << endl;
-    cout << "Введенный день рождения: " << day << endl;
-    cout << "Введенный год рождения: " << year << endl;
+
+
 }
 
