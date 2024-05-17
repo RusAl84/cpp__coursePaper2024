@@ -130,7 +130,7 @@
     <ClCompile Include="EditData.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClassMenu.h" />
+    <ClInclude Include="ClassEdit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

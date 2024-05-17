@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClassMenu.h">
+    <ClInclude Include="ClassEdit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
