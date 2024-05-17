@@ -2,7 +2,6 @@
 #include "ClassMenu.h"
 #include "ClassEdit.h"
 
-
 bool editSex() {
 	ClassMenu* sexMenu = new ClassMenu();
 	int resultSelectedItem = 1;
@@ -34,18 +33,18 @@ int main()
     SetConsoleCP(1251); // Ввод с консоли в кодировке 1251
     SetConsoleOutputCP(1251);
     ClassEdit* ce = new  ClassEdit();
-    cout << "Эксперименты с вводом пола и меню!\n";
+    cout << "Эксперименты с вводом пола и меню!" << endl;
 
 	bool sex;
 	sex = editSex();
 
 	string sexString;
 	if (sex)
-		sexString= мужской
+		sexString = "мужской";
+	else
+		sexString = "женский";
 
-
-
-
+	cout << endl << "Вы ввели \"" << sexString << "\" пол";
 
 }
 
