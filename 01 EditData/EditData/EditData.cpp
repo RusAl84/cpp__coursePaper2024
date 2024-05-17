@@ -15,16 +15,16 @@ int main()
 
     int day;
     ce->setLabel("Введите день рождения. ");
-    day = ce->setDataInt(1, 31);
+    day = ce->setDataInt(1, 31, 17);
     
     int year;
     ce->setLabel("Введите год рождения. ");
-    year = ce->setDataInt(1900, 2012);
+    year = ce->setDataInt(1900, 2012, 1984);
 
     delete ce;
 
-
-
-
+    cout << endl << "Введенная фамилия: " << surName << endl;
+    cout << "Введенный день рождения: " << day << endl;
+    cout << "Введенный год рождения: " << year << endl;
 }
 

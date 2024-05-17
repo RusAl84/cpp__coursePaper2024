@@ -1,7 +1,7 @@
 #pragma once
 #include "windows.h"
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <conio.h>
 #include <stdio.h>
 
@@ -113,7 +113,8 @@ public:
 
 
 
-	int setDataInt(int startRange, int endRange) {
+	int setDataInt(int startRange, int endRange, int dataInt) {
+		label = label + " Предыдущее значение: " + to_string(dataInt);
 		draw();
 		string inString = "";
 		while (inString.length() == 0) {
