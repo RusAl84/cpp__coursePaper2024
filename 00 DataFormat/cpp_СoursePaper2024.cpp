@@ -1,16 +1,18 @@
 ﻿#include <iostream>
 #include <Windows.h>
+#define lenName 20
+#define sesCount 9
+#define namesCount 10
 
 using namespace std;
 
 struct ExamsRecords {
-	char name[20]; // Название дисциплины
+	char name[lenName]; // Название дисциплины
 	int mark;
 	// 0 - не зачтено
 	// 1 - зачтено  
 	// 2,3,4,5 - оценки
 	bool isEmpty; // флаг о том, что ячейка массива пуста (ячейка пуста? да или нет)
-				
 };
 
 struct StudentNode
@@ -32,7 +34,7 @@ struct StudentNode
 		      // false - девочка
 	// Предполагается бинарный пол
 	int startYear; // Год начала обучения
-	ExamsRecords examsRecordsData[11][10]; // данные о сессиях 5,5 лет для БИСО 
+	ExamsRecords examsRecordsData[sesCount][namesCount]; // данные о сессиях 5,5 лет для БИСО 
 										   // для БИСО 11 семестров, 
 										   // для БББО 8 семестров - 4 года
 	StudentNode* next; // указатель на следующий элемент для динамического списка
