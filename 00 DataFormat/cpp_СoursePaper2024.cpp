@@ -1,7 +1,9 @@
 ﻿#include <iostream>
 #include <Windows.h>
 #define lenName 20
-#define sesCount 9
+#define sesCount 11 // данные о сессиях 5,5 лет для БИСО 
+					// для БИСО 11 семестров, 
+					// для БББО 8 семестров - 4 года
 #define namesCount 10
 
 using namespace std;

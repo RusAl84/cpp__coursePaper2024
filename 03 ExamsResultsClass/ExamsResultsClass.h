@@ -3,7 +3,7 @@
 #include <string.h>
 #include <string>
 #define lenName 20
-#define sesCount 9
+#define sesCount 11
 #define namesCount 10
 #include "ClassMenu.h"
 #include "ClassEdit.h"
@@ -84,7 +84,7 @@ public:
 		ClassEdit* ce = new  ClassEdit();
 		ExamsResultsClass* erc = new ExamsResultsClass();
 		sesMenu->addItem("Выход");   //0
-		for (int i = 1; i < namesCount; i++) {
+		for (int i = 1; i < sesCount+1; i++) {
 			sesMenu->addItem("Сессия " + std::to_string(i));
 		}
 		while (result != exit) {
