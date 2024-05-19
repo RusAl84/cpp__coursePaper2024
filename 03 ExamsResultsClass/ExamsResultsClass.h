@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string.h>
 #include <string>
 #define lenName 20
@@ -30,13 +31,13 @@ public:
 	}
 
 	void emptpy() {
-		for (int i = 0; i < 9; i++)
-			for (int j = 0; j < 10; j++)
+		for (int i = 0; i < sesCount; i++)
+			for (int j = 0; j < namesCount; j++)
 				data[i][j].isEmpty = true;
 	}
 	bool add(int sess, string itemName, int mark) {  //Для оценок
 		int firstEmptyRow = getFirstEmptyRow(sess);
-		if (firstEmptyRow < 9) {
+		if (firstEmptyRow < sesCount) {
 			data[sess][firstEmptyRow].isEmpty = false;
 			// Copy the source string to the destination string.
 			// strcpy_s(dest, sizeof(dest), src); https://hatchjs.com/how-to-use-strcpy_s/
@@ -55,7 +56,7 @@ public:
 		else
 			mark = 0;
 		int firstEmptyRow = getFirstEmptyRow(sess);
-		if (firstEmptyRow < 9) {
+		if (firstEmptyRow < sesCount) {
 			data[sess][firstEmptyRow].isEmpty = false;
 			//data[sess][firstEmptyRow].name = itemName;
 			strcpy_s(data[sess][firstEmptyRow].name, sizeof(data[sess][firstEmptyRow].name), itemName.c_str());
@@ -67,7 +68,7 @@ public:
 	}
 
 	int getFirstEmptyRow(int sessNum) {
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < namesCount; i++)
 			if (data[sessNum][i].isEmpty)
 				return i;
 		return -1;
@@ -83,7 +84,7 @@ public:
 		ClassEdit* ce = new  ClassEdit();
 		ExamsResultsClass* erc = new ExamsResultsClass();
 		sesMenu->addItem("Выход");   //0
-		for (int i = 1; i < 10; i++) {
+		for (int i = 1; i < namesCount; i++) {
 			sesMenu->addItem("Сессия " + std::to_string(i));
 		}
 		while (result != exit) {
@@ -97,7 +98,7 @@ public:
 				break;
 			}
 			int curSess = result;
-			if ((curSess >= 1) and (curSess <= 10))
+			if ((curSess >= 1) and (curSess <= namesCount))
 			{
 				//рисуем меню и правим оценки про сессию
 				msMenu->eraseAll();
@@ -109,17 +110,17 @@ public:
 					msMenu->addItem("Выход");
 					msMenu->addItem("Добавить запись");
 					msMenu->addItem("Удалить запись");
-					for (int i = 0; i < 10; i++)
-						if (not sn->examsRecordsData[curSess - 1][i].isEmpty)
+					for (int i = 0; i < namesCount; i++)
+						if (not data[curSess - 1][i].isEmpty)
 						{
 							string markString = "";
-							int markInt = sn->examsRecordsData[curSess - 1][i].mark;
+							int markInt = data[curSess - 1][i].mark;
 							if (markInt == 0) markString = "не зачтено";
 							if (markInt == 1) markString = "зачтено";
 							if ((markInt >= 2) and (markInt <= 5)) {
 								markString = std::to_string(markInt);
 							}
-							msMenu->addItem("Предмет: " + sn->examsRecordsData[curSess - 1][i].name + " Оценка: " + markString);
+							msMenu->addItem("Предмет: " + string(data[curSess - 1][i].name) + " Оценка: " + markString);
 						}
 					msMenu->run();
 					resultS = msMenu->getSelectedItem();
@@ -127,32 +128,34 @@ public:
 						resultS == exitS;
 					if (resultS == 1) {
 						int itemNum = msMenu->getItemsCount() - 3;
-						if (itemNum > 9) {
+						if (itemNum > sesCount) {
 							system("cls");
-							cout << "Ошибка в сессию бывает только 10 дисциплин для зачетов или экзаменов";
+							cout << "Ошибка в сессию бывает только namesCount дисциплин для зачетов или экзаменов";
 							_getch();  //!!!!!!!!!!!!!!!????????
 							_getch();
 						}
 						else {
-							addExamsResults(sn, curSess, itemNum);
+							addExamsResults( curSess, itemNum);
 						}
 					}
 					if (resultS == 2) {
 						//Удалить запись
-						delExamsResults(sn, curSess);
+						delExamsResults(curSess);
 					}
 					if (resultS > 2) {
-						addExamsResults(sn, curSess, resultS - 3);
+						addExamsResults(curSess, resultS - 3);
 					}
 				}
 			}
 			result = curSess;
 		}
 	}
-	void addExamsResults(StudentNode* sn, int curSess, int curItem) {
+	void addExamsResults( int curSess, int curItem) {
 		ClassEdit* ce = new  ClassEdit();
 		ce->setLabel("Введите название предмета. ");
-		sn->examsRecordsData[curSess - 1][curItem].name = ce->setDataString(sn->examsRecordsData[curSess - 1][curItem].name);
+		string resultStr = ce->setDataString(data[curSess - 1][curItem].name);
+		strcpy_s(data[curSess - 1][curItem].name, sizeof(data[curSess - 1][curItem].name), resultStr.c_str());
+		//data[curSess - 1][curItem].name = ce->setDataString(data[curSess - 1][curItem].name);
 		int resultS = 1;
 		const int exitS = 0;
 		ClassMenu* msMenu = new ClassMenu();
@@ -170,10 +173,10 @@ public:
 			// 0 - не зачет  
 			// 1 - зачет  
 			// 2,3,4,5 - оценки
-			sn->examsRecordsData[curSess - 1][curItem].mark = resultS;
+			data[curSess - 1][curItem].mark = resultS;
 			resultS = exitS;
 		}
-		sn->examsRecordsData[curSess - 1][curItem].isEmpty = false;
+		data[curSess - 1][curItem].isEmpty = false;
 	}
 	void delExamsResults(int curSess) {
 		ClassEdit* ce = new  ClassEdit();
@@ -185,17 +188,17 @@ public:
 		while (resultS != exitS) {
 			msMenu->eraseItem();
 			msMenu->addItem("Выход");
-			for (int i = 0; i < 10; i++)
-				if (not sn->examsRecordsData[curSess - 1][i].isEmpty)
+			for (int i = 0; i < namesCount; i++)
+				if (not data[curSess - 1][i].isEmpty)
 				{
 					string markString = "";
-					int markInt = sn->examsRecordsData[curSess - 1][i].mark;
+					int markInt = data[curSess - 1][i].mark;
 					if (markInt == 0) markString = "не зачтено";
 					if (markInt == 1) markString = "зачтено";
 					if ((markInt >= 2) and (markInt <= 5)) {
 						markString = std::to_string(markInt);
 					}
-					msMenu->addItem("Предмет: " + sn->examsRecordsData[curSess - 1][i].name + " Оценка: " + markString);
+					msMenu->addItem("Предмет: " + string(data[curSess - 1][i].name) + " Оценка: " + markString);
 				}
 			msMenu->run();
 			resultS = msMenu->getSelectedItem();
@@ -203,30 +206,32 @@ public:
 				resultS == exitS;
 			else
 			{
-				sn->examsRecordsData[curSess - 1][resultS - 1].isEmpty = true;
+				data[curSess - 1][resultS - 1].isEmpty = true;
 				//Дефрагментация массива
 				ExamsResultsClass* er = new ExamsResultsClass();
-				for (int i = 0; i < 10; i++)
-					if (not sn->examsRecordsData[curSess - 1][i].isEmpty)
-						er->add(0, sn->examsRecordsData[curSess - 1][i].name, sn->examsRecordsData[curSess - 1][i].mark);
+				for (int i = 0; i < namesCount; i++)
+					if (not data[curSess - 1][i].isEmpty)
+						er->add(0, data[curSess - 1][i].name, data[curSess - 1][i].mark);
 				//er->add(0, "Яыки программирования 1", 5);
-				for (int i = 0; i < 10; i++)
-					sn->examsRecordsData[curSess - 1][i].isEmpty = true;
-				for (int i = 0; i < 10; i++)
+				for (int i = 0; i < namesCount; i++)
+					data[curSess - 1][i].isEmpty = true;
+				for (int i = 0; i < namesCount; i++)
 					if (not er->data[0][i].isEmpty) {
-						sn->examsRecordsData[curSess - 1][i].isEmpty = false;
-						sn->examsRecordsData[curSess - 1][i].name = er->data[0][i].name;
-						sn->examsRecordsData[curSess - 1][i].mark = er->data[0][i].mark;
+						data[curSess - 1][i].isEmpty = false;
+						//data[curSess - 1][i].name = er->data[0][i].name;
+						string resultStr = er->data[0][i].name;
+						strcpy_s(data[curSess - 1][i].name, sizeof(data[curSess - 1][i].name), resultStr.c_str());
+						data[curSess - 1][i].mark = er->data[0][i].mark;
 					}
 			}
 		}
 	}
 	//bool isSameNameExamsResults(StudentNode* sn) {
-	//	for (int curSess = 0; curSess < 9; curSess++) {
-	//		for (int i = 0; i < 10; i++)
-	//			for (int j = 0; j < 10; j++)
-	//				if (sn->examsRecordsData[curSess][i].isEmpty == false and sn->examsRecordsData[curSess][j].isEmpty == false and i != j)
-	//					if (strcmp(sn->examsRecordsData[curSess][i].name.c_str(), sn->examsRecordsData[curSess][j].name.c_str()) == 0)
+	//	for (int curSess = 0; curSess < sesCount; curSess++) {
+	//		for (int i = 0; i < namesCount; i++)
+	//			for (int j = 0; j < namesCount; j++)
+	//				if (data[curSess][i].isEmpty == false and data[curSess][j].isEmpty == false and i != j)
+	//					if (strcmp(data[curSess][i].name.c_str(), data[curSess][j].name.c_str()) == 0)
 	//						return true;
 	//	}
 	//	return false;
@@ -234,10 +239,10 @@ public:
 	//double getAvrMarks(StudentNode* sn) {
 	//	double sum = 0;
 	//	double count = 0;
-	//	for (int i = 0; i < 9; i++)
-	//		for (int j = 0; j < 10; j++)
-	//			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 1) {
-	//				sum = sum + sn->examsRecordsData[i][j].mark;
+	//	for (int i = 0; i < sesCount; i++)
+	//		for (int j = 0; j < namesCount; j++)
+	//			if (data[i][j].isEmpty == false and data[i][j].mark > 1) {
+	//				sum = sum + data[i][j].mark;
 	//				count++;
 	//			}
 	//	int avr = 0;
