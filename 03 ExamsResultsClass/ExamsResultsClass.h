@@ -3,7 +3,7 @@
 #include <string.h>
 #include <string>
 #define lenName 20
-#define sesCount 11
+#define sesCount 9
 #define namesCount 10
 #include "ClassMenu.h"
 #include "ClassEdit.h"
@@ -118,7 +118,7 @@ public:
 							if (markInt == 0) markString = "не зачтено";
 							if (markInt == 1) markString = "зачтено";
 							if ((markInt >= 2) and (markInt <= 5)) {
-								markString = std::to_string(markInt);
+								markString = to_string(markInt);
 							}
 							msMenu->addItem("Предмет: " + string(data[curSess - 1][i].name) + " Оценка: " + markString);
 						}
@@ -153,7 +153,10 @@ public:
 	void addExamsResults( int curSess, int curItem) {
 		ClassEdit* ce = new  ClassEdit();
 		ce->setLabel("Введите название предмета. ");
-		string resultStr = ce->setDataString(data[curSess - 1][curItem].name);
+		string prevStr = "";
+		if (not data[curSess - 1][curItem].isEmpty)
+			prevStr = data[curSess - 1][curItem].name;
+		string resultStr = ce->setDataString(prevStr);
 		strcpy_s(data[curSess - 1][curItem].name, sizeof(data[curSess - 1][curItem].name), resultStr.c_str());
 		//data[curSess - 1][curItem].name = ce->setDataString(data[curSess - 1][curItem].name);
 		int resultS = 1;
