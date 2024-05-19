@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f29b34ab-efb2-4cd2-a773-7dc1d15e8783}</ProjectGuid>
-    <RootNamespace>My03Addstudent</RootNamespace>
+    <ProjectGuid>{36a21e2b-e3f0-4ccb-8530-727be9a29506}</ProjectGuid>
+    <RootNamespace>My04Addstudent</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="03 Add student.cpp" />
+    <ClCompile Include="04 Add student.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
