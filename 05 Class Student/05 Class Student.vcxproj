@@ -128,8 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="05 List of Students.cpp" />
-    <ClCompile Include="StudentClass.cpp" />
+    <ClCompile Include="05 Class Student.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StudentClass.h" />
