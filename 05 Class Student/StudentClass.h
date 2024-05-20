@@ -389,6 +389,14 @@ public:
 
 	//list
 
+	StudentNode* getItem(int index) {
+		struct StudentNode* current = myHead;
+		for (int i = 0; i < index; i++) {
+			current = current->next;
+			//cout << "+" << current->data;
+		}
+		return current;
+	}
 
 	void printAllSurName_Name_MName_bYaear() {
 		struct StudentNode* current = myHead;
@@ -432,13 +440,13 @@ public:
 				while (resultStudentSelectedItem != exitIntStudentMenu) {
 					studentsMenu->eraseItem();
 					studentsMenu->addItem("Âûõîä");
-					//for (int i = 0; i < sdb->DataBase.size(); i++)
-					//{ // äîáàâèòü ïóíêòû ìåíş ÔÈÎ ñòóäåíòîâ
-					//	sn = &sdb->DataBase.at(i);
-					//	string tmpString = sn->surName + " " + sn->name + " " + sn->middleName + " " + sn->group;
-					//	studentsMenu->addItem(tmpString); //äîáàâèòü â ìåíş ñòóäåíòîâ
-					//	//sn = sn->next;
-					//}
+					studentsMenu->addItem("Óäàëèòü äàííûå î ñòóäåíòå");
+					struct StudentNode* current = myHead;
+					for (int i = 0; i < countItem-1; i++) {
+						current = current->next;
+						string tmpString = string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString);
+						studentsMenu->addItem(tmpString); //äîáàâèòü â ìåíş ñòóäåíòîâ
+					}
 					studentsMenu->run();
 					resultStudentSelectedItem = studentsMenu->getSelectedItem();
 					if (resultStudentSelectedItem == exitIntStudentMenu) {
@@ -471,39 +479,28 @@ public:
 						//	}
 						//}
 					}
-					//if (resultStudentSelectedItem > 1)
-					//{
-					//	int num = resultStudentSelectedItem - 2; //!
-					//	sn = &sdb->DataBase.at(num);
-					//	string oldRecordÑardNumber = "";
-					//	oldRecordÑardNumber = sn->recordÑardNumber;
-					//	st->editStudent(sn);
+					if (resultStudentSelectedItem > 1)
+					{
+						int num = resultStudentSelectedItem - 2;
+						editItem(num);
+						//int num = resultStudentSelectedItem - 2; //!
+						//sn = &sdb->DataBase.at(num);
+						//string oldRecordÑardNumber = "";
+						//oldRecordÑardNumber = sn->recordÑardNumber;
+						//st->editStudent(sn);
 
-					//	if (sdb->getSameRecordÑardNumber(sn->recordÑardNumber) > 1)
-					//	{
-					//		sn->recordÑardNumber = oldRecordÑardNumber;
-					//		cout << "Îøèáêà ââåäåí íîìåğ çà÷åòíîé êíèæêè êîòîğûé óæå åñòü â ÁÄ";
-					//		_getch();
-					//	}
-					//}
+						//if (sdb->getSameRecordÑardNumber(sn->recordÑardNumber) > 1)
+						//{
+						//	sn->recordÑardNumber = oldRecordÑardNumber;
+						//	cout << "Îøèáêà ââåäåí íîìåğ çà÷åòíîé êíèæêè êîòîğûé óæå åñòü â ÁÄ";
+						//	_getch();
+						//}
+					}
 				}
-				//resultSelectedItem = exitInt;
+				resultSelectedItem = exitInt;
 				break;
 			case 1:
-				//sn = new StudentNode();
-				//for (int i = 0; i < 9; i++)
-				//	for (int j = 0; j < 10; j++)
-				//		sn->examsRecordsData[i][j].isEmpty = true;
-				//st->editStudent(sn);
-				//if (sdb->getSameRecordÑardNumber(sn->recordÑardNumber) >= 1)
-				//{
-				//	cout << "Îøèáêà ââåäåí íîìåğ çà÷åòíîé êíèæêè êîòîğûé óæå åñòü â ÁÄ";
-				//	_getch();
-				//}
-				//else
-				//{
-				//	sdb->DataBase.push_front(*sn);
-				//}
+				addItem();
 				break;
 			case 2: //Ñîõğàíèòü â ôàéë
 				//sdb->saveDataToFile(sdb->FileName);
