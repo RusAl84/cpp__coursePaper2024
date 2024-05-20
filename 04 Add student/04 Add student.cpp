@@ -68,11 +68,11 @@ void addDefaultStudent(StudentNode *sn) {
 	er->add(1, "Яыки программирования 2", 5);
 	er->add(1, "Математика 2", 5);
 	er->add(1, "Физкультура 2", true);
-	setExamsResultsData(er, sn);
+	setExamsResultsData(sn,er);
 	delete er;
 }
 
-void setExamsResultsData(ExamsResultsClass* er, StudentNode* sn) {
+void setExamsResultsData(StudentNode* sn, ExamsResultsClass* er) {
 	for (int i = 0; i < sesCount; i++)
 		for (int j = 0; j < namesCount; j++) {
 			sn->examsRecordsData[i][j].isEmpty = er->data[i][j].isEmpty;
