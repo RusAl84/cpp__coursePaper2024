@@ -230,26 +230,20 @@ void editStudent(StudentNode* sn)
 			ce->setLabel("Просмотреть/ изменить оценки.");
 			ExamsResultsClass* erc = new ExamsResultsClass();
 			erc->editExamsResults();
-			delete erc;
-			//sn = getStudentNode();
-			for (int i = 0; i < 9; i++)
-				for (int j = 0; j < 10; j++) {
-					oldExamsRecordsData[i][j].name = sn->examsRecordsData[i][j].name;
-					oldExamsRecordsData[i][j].isEmpty = sn->examsRecordsData[i][j].isEmpty;
-					oldExamsRecordsData[i][j].mark = sn->examsRecordsData[i][j].mark;
+			for (int i = 0; i < sesCount; i++)
+				for (int j = 0; namesCount < 10; j++) {
+					erc->data[i][j].isEmpty = sn->examsRecordsData[i][j].isEmpty;
+					erc->data[i][j].mark = sn->examsRecordsData[i][j].mark;
+					strcpy_s(erc->data[i][j].name, sizeof(erc->data[i][j].name), sn->examsRecordsData[i][j].name);
 				}
-
-			editExamsResults(sn); // "Ошибка есть одинаковые названия предметов"
-			if (isSameNameExamsResults(sn)) {
-				cout << "Ошибка есть одинаковые названия предметов";
-				for (int i = 0; i < 9; i++)
-					for (int j = 0; j < 10; j++) {
-						sn->examsRecordsData[i][j].name = oldExamsRecordsData[i][j].name;
-						sn->examsRecordsData[i][j].isEmpty = oldExamsRecordsData[i][j].isEmpty;
-						sn->examsRecordsData[i][j].mark = oldExamsRecordsData[i][j].mark;
-					}
-				_getch();
-			}
+			erc->editExamsResults();
+			for (int i = 0; i < sesCount; i++)
+				for (int j = 0; j < namesCount; j++) {
+					sn->examsRecordsData[i][j].isEmpty = erc->data[i][j].isEmpty;
+					sn->examsRecordsData[i][j].mark = erc->data[i][j].mark;
+					strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), erc->data[i][j].name);
+				}
+			delete erc;
 			break;
 		default:
 			break;
