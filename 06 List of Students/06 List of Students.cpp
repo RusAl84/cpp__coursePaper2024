@@ -12,8 +12,9 @@ int main()
 	cout << "06 List of Students\n";
 
 	StudentClass* st = new StudentClass();
-	StudentNode* sn = new StudentNode();
-	st->addDefaultStudent(sn);
-	st->editStudent(sn);
+	//StudentNode* sn = new StudentNode();
+	//st->addDefaultStudent(sn);
+	//st->editStudent(sn);
+	st->mainMenu();
 }
 

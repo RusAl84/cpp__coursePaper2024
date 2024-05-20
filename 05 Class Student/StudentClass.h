@@ -35,104 +35,6 @@ struct StudentNode
 class StudentClass
 {
 public:
-	//list
-	struct StudentNode* myHead;
-	int countItem = 0;
-	//Визуализация для добавления и удаления элементов в односвязном списке.
-	//https://www.cs.usfca.edu/~galles/visualization/StackLL.html
-
-	void addItem()
-	{
-		struct StudentNode* newItem = new StudentNode();
-		//newItem->StudentNode = data;
-		addDefaultStudent(newItem);
-		editStudent(newItem);
-		if (countItem == 0)
-			newItem->next = NULL;
-		else
-			newItem->next = myHead;
-		myHead = newItem;
-		countItem++;
-	}
-
-	void insertItem(int index) {
-		if (not (index >= 0 and index <= countItem and countItem >= 0))
-			return;
-		if (index == 0){
-			addItem();
-			}
-		else 
-		{
-			struct StudentNode* current = myHead;
-			for (int i = 0; i < index - 1; i++) {
-				current = current->next;
-			}
-			struct StudentNode* newItem = new StudentNode();
-			//newItem->data = data;
-			addDefaultStudent(newItem);
-			editStudent(newItem);
-			newItem->next = current->next;
-			current->next = newItem;
-			countItem++;
-		}
-	}
-
-
-	void editItem(int index) {
-		if (index >= 0 and index < countItem and countItem>0) {
-			struct StudentNode* current = myHead;
-			for (int i = 0; i < index; i++) {
-				current = current->next;
-				//cout << "+" << current->data;
-			}
-			//current->data = data;
-			editStudent(current);
-		}
-		else {
-			cout << endl << "Ошибка индекс не в диапазоне";
-		}
-	}
-
-	void deleteItem(int index) {
-		if (index >= 0 and index < countItem and countItem>0) {
-			struct StudentNode* current = myHead;
-			struct StudentNode* old;
-			if (index == 0) {
-				old = myHead;
-				myHead = current->next;
-				delete old;
-				countItem--;
-			}
-			else {
-				int i = 0;
-				while (current) {
-					if (i == index - 1) {
-						old = current->next->next;
-						delete current->next;
-						current->next = old;
-						countItem--;
-						break;
-					}
-					i++;
-					current = current->next;
-				}
-			}
-		}
-
-	}
-
-	void printMyList() {
-		struct StudentNode* current = myHead;
-		cout << endl;
-		while (current) {
-			//cout << " " << current->data;
-			cout << " " << current->surName;
-			current = current->next;
-		}
-	}
-	
-	//list
-
 
 	void addDefaultStudent(StudentNode* sn) {
 		//sn->id = 0;
@@ -387,6 +289,233 @@ public:
 		if (count > 0)
 			proc = sum / count;
 		return proc;
+	}
+
+
+	//list
+	struct StudentNode* myHead;
+	int countItem = 0;
+	//Визуализация для добавления и удаления элементов в односвязном списке.
+	//https://www.cs.usfca.edu/~galles/visualization/StackLL.html
+
+	void addItem()
+	{
+		struct StudentNode* newItem = new StudentNode();
+		//newItem->StudentNode = data;
+		addDefaultStudent(newItem);
+		editStudent(newItem);
+		if (countItem == 0)
+			newItem->next = NULL;
+		else
+			newItem->next = myHead;
+		myHead = newItem;
+		countItem++;
+	}
+
+	void insertItem(int index) {
+		if (not (index >= 0 and index <= countItem and countItem >= 0))
+			return;
+		if (index == 0) {
+			addItem();
+		}
+		else
+		{
+			struct StudentNode* current = myHead;
+			for (int i = 0; i < index - 1; i++) {
+				current = current->next;
+			}
+			struct StudentNode* newItem = new StudentNode();
+			//newItem->data = data;
+			addDefaultStudent(newItem);
+			editStudent(newItem);
+			newItem->next = current->next;
+			current->next = newItem;
+			countItem++;
+		}
+	}
+
+
+	void editItem(int index) {
+		if (index >= 0 and index < countItem and countItem>0) {
+			struct StudentNode* current = myHead;
+			for (int i = 0; i < index; i++) {
+				current = current->next;
+				//cout << "+" << current->data;
+			}
+			//current->data = data;
+			editStudent(current);
+		}
+		else {
+			cout << endl << "Ошибка индекс не в диапазоне";
+		}
+	}
+
+	void deleteItem(int index) {
+		if (index >= 0 and index < countItem and countItem>0) {
+			struct StudentNode* current = myHead;
+			struct StudentNode* old;
+			if (index == 0) {
+				old = myHead;
+				myHead = current->next;
+				delete old;
+				countItem--;
+			}
+			else {
+				int i = 0;
+				while (current) {
+					if (i == index - 1) {
+						old = current->next->next;
+						delete current->next;
+						current->next = old;
+						countItem--;
+						break;
+					}
+					i++;
+					current = current->next;
+				}
+			}
+		}
+	}
+
+	void printMyList() {
+		struct StudentNode* current = myHead;
+		cout << endl;
+		while (current) {
+			//cout << " " << current->data;
+			cout << " " << current->surName;
+			current = current->next;
+		}
+	}
+
+	//list
+
+
+	void printAllSurName_Name_MName_bYaear() {
+		struct StudentNode* current = myHead;
+		cout << endl;
+		while (current) {
+			//cout << " " << current->data;
+			cout << string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString)  << endl;
+			current = current->next;
+		}
+	}
+
+	void mainMenu() {
+		ClassMenu* mainMenu = new ClassMenu();
+		mainMenu->addTitleItem("Главное меню");
+		mainMenu->addItem("Просмотреть список студетов (удалить или изменить данные)"); //0
+		mainMenu->addItem("Добавить данные о студенте в БД"); //1
+		mainMenu->addItem("Сохранить БД студентов в файл"); //2
+		mainMenu->addItem("Выполнить вариант XX"); //3
+		mainMenu->addItem("Выход"); //4
+		int resultSelectedItem = 0;
+		int exitInt = 4;
+		ClassMenu* studentsMenu = new ClassMenu();
+		studentsMenu->addTitleItem("Список студентов");
+		int resultStudentSelectedItem = 1;
+		const int exitIntStudentMenu = 0;
+		StudentNode* sn;
+		StudentClass* st = new StudentClass();
+		ClassMenu* delStudentsMenu = new ClassMenu();
+		int curCount;
+		ClassEdit* ce = new  ClassEdit();
+		int startYear = 0;
+		int endYear = 0;
+		int year = 0;
+		string firstPartString;
+		while (resultSelectedItem != exitInt) {
+			mainMenu->run();
+			resultSelectedItem = mainMenu->getSelectedItem();
+			switch (resultSelectedItem) {
+			case 0:
+				resultStudentSelectedItem = 1;
+				while (resultStudentSelectedItem != exitIntStudentMenu) {
+					studentsMenu->eraseItem();
+					studentsMenu->addItem("Выход");
+					//for (int i = 0; i < sdb->DataBase.size(); i++)
+					//{ // добавить пункты меню ФИО студентов
+					//	sn = &sdb->DataBase.at(i);
+					//	string tmpString = sn->surName + " " + sn->name + " " + sn->middleName + " " + sn->group;
+					//	studentsMenu->addItem(tmpString); //добавить в меню студентов
+					//	//sn = sn->next;
+					//}
+					studentsMenu->run();
+					resultStudentSelectedItem = studentsMenu->getSelectedItem();
+					if (resultStudentSelectedItem == exitIntStudentMenu) {
+						break;
+					}
+					if (resultStudentSelectedItem == 1) //удаление данных о студенте
+					{
+						delStudentsMenu->eraseAll();
+						delStudentsMenu->addTitleItem("Выберите студента для удаления данных");
+						delStudentsMenu->addItem("Выход");
+						int resultDel = 1;
+						const int exitDel = 0;
+						//for (int i = 0; i < sdb->DataBase.size(); i++)
+						//{ // добавить пункты меню ФИО студентов
+						//	sn = &sdb->DataBase.at(i);
+						//	string tmpString = sn->surName + " " + sn->name + " " + sn->middleName + " " + sn->group;
+						//	delStudentsMenu->addItem(tmpString); //добавить в меню студентов
+						//	//sn = sn->next;
+						//}
+						//while (resultDel != exitDel) {
+						//	delStudentsMenu->run();
+						//	resultDel = delStudentsMenu->getSelectedItem();
+						//	if (resultDel == exitDel) {
+						//		break;
+						//	}
+						//	else {
+						//		int num = resultDel - 1;
+						//		sdb->DataBase.erase(std::next(sdb->DataBase.begin(), num));
+						//		break;
+						//	}
+						//}
+					}
+					//if (resultStudentSelectedItem > 1)
+					//{
+					//	int num = resultStudentSelectedItem - 2; //!
+					//	sn = &sdb->DataBase.at(num);
+					//	string oldRecordСardNumber = "";
+					//	oldRecordСardNumber = sn->recordСardNumber;
+					//	st->editStudent(sn);
+
+					//	if (sdb->getSameRecordСardNumber(sn->recordСardNumber) > 1)
+					//	{
+					//		sn->recordСardNumber = oldRecordСardNumber;
+					//		cout << "Ошибка введен номер зачетной книжки который уже есть в БД";
+					//		_getch();
+					//	}
+					//}
+				}
+				//resultSelectedItem = exitInt;
+				break;
+			case 1:
+				//sn = new StudentNode();
+				//for (int i = 0; i < 9; i++)
+				//	for (int j = 0; j < 10; j++)
+				//		sn->examsRecordsData[i][j].isEmpty = true;
+				//st->editStudent(sn);
+				//if (sdb->getSameRecordСardNumber(sn->recordСardNumber) >= 1)
+				//{
+				//	cout << "Ошибка введен номер зачетной книжки который уже есть в БД";
+				//	_getch();
+				//}
+				//else
+				//{
+				//	sdb->DataBase.push_front(*sn);
+				//}
+				break;
+			case 2: //Сохранить в файл
+				//sdb->saveDataToFile(sdb->FileName);
+				break;
+			case 3:
+				resultSelectedItem = exitInt;
+				break;
+			default:
+				break;
+			}
+		}
+		//_getch();
 	}
 
 
