@@ -12,5 +12,6 @@ int main()
     cout << "ExamsResultsClass!\n";
     ExamsResultsClass* erc = new ExamsResultsClass();
     erc->editExamsResults();
+    delete erc;
 }
 

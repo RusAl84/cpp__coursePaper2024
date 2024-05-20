@@ -83,6 +83,178 @@ void setExamsResultsData(StudentNode* sn, ExamsResultsClass* er) {
 		}
 }
 
+
+bool editSex() {
+	ClassMenu* sexMenu = new ClassMenu();
+	int resultSelectedItem = 1;
+	const int exitItem = 3;
+	sexMenu->addTitleItem("Выберите пол: ");
+	sexMenu->addItem("мужской");
+	sexMenu->addItem("женский");
+	while (resultSelectedItem != exitItem) {
+		sexMenu->run();
+		resultSelectedItem = sexMenu->getSelectedItem();
+		switch (resultSelectedItem) {
+		case 0:
+			return true;
+			resultSelectedItem = exitItem;
+			break;
+		case 1:
+			return false;
+			resultSelectedItem = exitItem;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void editStudent(StudentNode* sn)
+{
+	ClassMenu* studDataMenu = new ClassMenu();
+	int resultStudDataMenu = 1;
+	const int exitStudDataMenu = 0;
+	ClassEdit* ce = new  ClassEdit();
+	studDataMenu->addItem("Выход");   //0
+	studDataMenu->addItem("Добавить/изменить фамилию"); //1
+	studDataMenu->addItem("Добавить/изменить имя");   //2
+	studDataMenu->addItem("Добавить/изменить отчество");   //3
+	studDataMenu->addItem("Добавить/изменить институт");   //4
+	studDataMenu->addItem("Добавить/изменить кафедру");   //5
+	studDataMenu->addItem("Добавить/изменить группу");   //6
+	studDataMenu->addItem("Добавить/изменить номер зачетной книжки");   //7
+	studDataMenu->addItem("Добавить/изменить пол");   //
+	studDataMenu->addItem("Добавить/изменить год поступления в ВУЗ");   //8
+	studDataMenu->addItem("Добавить/изменить дату рождения");   //9
+	studDataMenu->addItem("Добавить/изменить оценки");   //10
+	int day, month, year;
+	while (resultStudDataMenu != exitStudDataMenu) {
+		studDataMenu->eraseTitle();
+		studDataMenu->addTitleItem("Изменение/добавление данных о студенте:");
+		studDataMenu->addTitleItem("Фамилия: " + string(sn->surName) + " Имя: " + string(sn->name) + " Отчество: " + string(sn->middleName));
+		string sexString = "";
+		if (sn->sex) 
+			sexString = "ve;crjq";
+		else { sexString = "девочка;)"; }
+		studDataMenu->addTitleItem("пол: " + sexString + " дата рождения: " + string(sn->birthDateString) + " год поступления:" + std::to_string(sn->startYear));
+		studDataMenu->addTitleItem("Номер зачетной книжки: " + string(sn->recordCardNumber) + " Группа: " + string(sn->group));
+		studDataMenu->addTitleItem("Институт: " + string(sn->faculty));
+		studDataMenu->addTitleItem("Кафедра: " + string(sn->department));
+		studDataMenu->run();
+		resultStudDataMenu = studDataMenu->getSelectedItem();
+		string tmpString = "";
+		int year = 0;
+		int startYear = 0;
+		ExamsRecords oldExamsRecordsData[9][10];
+		switch (resultStudDataMenu) {
+		case 0:
+			resultStudDataMenu = exitStudDataMenu;
+			break;
+		case 1:
+			ce->setLabel("Введите фамилию. ");
+			strcpy_s(sn->surName, sizeof(sn->surName), ce->setDataString(sn->surName).c_str());
+			break;
+		case 2:
+			ce->setLabel("Введите имя. ");
+			strcpy_s(sn->name, sizeof(sn->name), ce->setDataString(sn->name).c_str());
+			break;
+		case 3:
+			ce->setLabel("Введите отчество. ");
+			strcpy_s(sn->middleName, sizeof(sn->middleName), ce->setDataString(sn->middleName).c_str());
+			break;
+		case 4:
+			ce->setLabel("Введите название института. ");
+			strcpy_s(sn->faculty, sizeof(sn->faculty), ce->setDataString(sn->faculty).c_str());
+			break;
+		case 5:
+			ce->setLabel("Введите название кафедры. ");
+			strcpy_s(sn->department, sizeof(sn->department), ce->setDataString(sn->department).c_str());
+			break;
+		case 6:
+			ce->setLabel("Введите группу. ");
+			strcpy_s(sn->group, sizeof(sn->group), ce->setDataString(sn->group).c_str());
+			break;
+		case 7:
+			ce->setLabel("Введите номер зачетной книжки. ");
+			strcpy_s(sn->recordCardNumber, sizeof(sn->recordCardNumber), ce->setDataString(sn->recordCardNumber).c_str());
+			break;
+		case 8:
+			ce->setLabel("Введите пол. ");
+			sn->sex = editSex();        ////
+			break;
+		case 9:
+			ce->setLabel("Введите год поступления в ВУЗ. ");
+			startYear = ce->setDataInt(1900, 2021);
+			//tmpString = sb->split(sn->birthDateString.c_str(), '.', 3);
+			year = atoi(tmpString.c_str());
+			if (year == 0)
+				sn->startYear = startYear;
+			else
+			{
+				if (startYear - year >= 15) {
+					sn->startYear = startYear;
+				}
+				else
+				{
+					cout << "Ошибка год поступления в институт должен быть на 15 лет больше чем год рождения";
+					_getch();
+				}
+			}
+
+			break;
+		case 10:
+			ce->setLabel("Введите день рождения. ");
+			day = ce->setDataInt(1, 31);
+			ce->setLabel("Введите месяц рождения. ");
+			month = ce->setDataInt(1, 12);
+			ce->setLabel("Введите год рождения. ");
+			year = ce->setDataInt(1900, 2014, 2004);
+			if (sn->startYear < 1990) {
+				cout << "Ошибка год поступления в институт должен быть не ранее 1990";
+				_getch();
+			}
+			else
+			{
+				if (sn->startYear - year >= 13) {
+					string tmpStr = to_string(day) + "." + to_string(month) + "." + to_string(year);
+					strcpy_s(sn->birthDateString, sizeof(sn->birthDateString), tmpStr.c_str());
+				}
+				else
+				{
+					cout << "Ошибка год поступления в институт должен быть на 13 лет больше чем год рождения";
+					_getch();
+				}
+			}
+			break;
+		case 11:
+			ce->setLabel("Просмотреть/ изменить оценки.");
+			//sn = getStudentNode();
+			for (int i = 0; i < 9; i++)
+				for (int j = 0; j < 10; j++) {
+					oldExamsRecordsData[i][j].name = sn->examsRecordsData[i][j].name;
+					oldExamsRecordsData[i][j].isEmpty = sn->examsRecordsData[i][j].isEmpty;
+					oldExamsRecordsData[i][j].mark = sn->examsRecordsData[i][j].mark;
+				}
+
+			editExamsResults(sn); // "Ошибка есть одинаковые названия предметов"
+			if (isSameNameExamsResults(sn)) {
+				cout << "Ошибка есть одинаковые названия предметов";
+				for (int i = 0; i < 9; i++)
+					for (int j = 0; j < 10; j++) {
+						sn->examsRecordsData[i][j].name = oldExamsRecordsData[i][j].name;
+						sn->examsRecordsData[i][j].isEmpty = oldExamsRecordsData[i][j].isEmpty;
+						sn->examsRecordsData[i][j].mark = oldExamsRecordsData[i][j].mark;
+					}
+				_getch();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+
 double getAvrMarks(StudentNode* sn) {
 	double sum = 0;
 	double count = 0;
@@ -97,6 +269,57 @@ double getAvrMarks(StudentNode* sn) {
 		avr = sum / count;
 	return avr;
 }
+
+double getMarks45(StudentNode* sn) {
+	double sum = 0;
+	double count = 0;
+	for (int i = 0; i < 9; i++)
+		for (int j = 0; j < 10; j++)
+			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 1) {
+				count++;
+				if (sn->examsRecordsData[i][j].mark > 3)
+					sum++;
+			}
+	double proc = 0;
+	if (count > 0)
+		proc = sum / count;
+	return proc;
+}
+
+//int getCountMarks5(StudentNode* sn, List <int> rangeSem) {
+//	int count = 0;
+//	for (auto i : rangeSem)
+//		for (int j = 0; j < 10; j++)
+//			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 4) {
+//				count++;
+//			}
+//	return count;
+//}
+//StudentNode* getCountMarks543(StudentNode* sn) {
+//	int count = 0;
+//	for (int i = 0; i < 9; i++)
+//		for (int j = 0; j < 10; j++)
+//			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 1) {
+//				if (sn->examsRecordsData[i][j].mark == 5)
+//					sn->countMarks5++;
+//				if (sn->examsRecordsData[i][j].mark == 4)
+//					sn->countMarks4++;
+//				if (sn->examsRecordsData[i][j].mark == 3)
+//					sn->countMarks3++;
+//				count++;
+//			}
+//	if (count > 0) {
+//		sn->countMarks5 = sn->countMarks5 / count;
+//		sn->countMarks4 = sn->countMarks4 / count;
+//		sn->countMarks3 = sn->countMarks3 / count;
+//	}
+//	else {
+//		sn->countMarks5 = 0;
+//		sn->countMarks4 = 0;
+//		sn->countMarks3 = 0;
+//	}
+//	return sn;
+//}
 
 int main()
 {
