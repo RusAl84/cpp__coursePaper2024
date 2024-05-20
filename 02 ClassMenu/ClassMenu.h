@@ -4,7 +4,8 @@
 #include <string.h>
 #include <conio.h>
 #include <stdio.h>
-#include "ClassEdit.h"
+#include "../01 EditData/ClassEdit.h"
+
 using namespace std;
 
 class ClassMenu

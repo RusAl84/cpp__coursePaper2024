@@ -130,8 +130,8 @@
     <ClCompile Include="03 ExamsResultsClass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClassEdit.h" />
-    <ClInclude Include="ClassMenu.h" />
+    <ClInclude Include="..\01 EditData\ClassEdit.h" />
+    <ClInclude Include="..\02 ClassMenu\ClassMenu.h" />
     <ClInclude Include="ExamsResultsClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

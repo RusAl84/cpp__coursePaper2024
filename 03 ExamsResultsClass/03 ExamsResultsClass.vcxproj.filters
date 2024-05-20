@@ -23,10 +23,10 @@
     <ClInclude Include="ExamsResultsClass.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ClassMenu.h">
+    <ClInclude Include="..\02 ClassMenu\ClassMenu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ClassEdit.h">
+    <ClInclude Include="..\01 EditData\ClassEdit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -130,6 +130,7 @@
     <ClCompile Include="ClassMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\01 EditData\ClassEdit.h" />
     <ClInclude Include="ClassMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

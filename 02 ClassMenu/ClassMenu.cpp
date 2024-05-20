@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include "ClassMenu.h"
-#include "ClassEdit.h"
+
 
 bool editSex() {
 	ClassMenu* sexMenu = new ClassMenu();

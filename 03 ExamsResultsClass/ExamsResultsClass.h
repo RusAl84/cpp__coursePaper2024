@@ -2,11 +2,11 @@
 #include <iostream>
 #include <string.h>
 #include <string>
+#include "../02 ClassMenu/ClassMenu.h"
 #define lenName 20
 #define sesCount 11
 #define namesCount 10
-#include "ClassMenu.h"
-#include "ClassEdit.h"
+
 
 using namespace std;
 
