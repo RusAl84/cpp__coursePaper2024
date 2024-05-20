@@ -1,18 +1,8 @@
 ﻿#include <iostream>
 #include <Windows.h>
-#include "../03 ExamsResultsClass/ExamsResultsClass.h"
 #include "StudentClass.h"
 
-
 using namespace std;
-
-//struct ExamsRecords {   // !!!описание структуры находится в "../03 ExamsResultsClass/ExamsResultsClass.h"
-// !!! Всё в одном месте
-
-
-
-
-
 
 int main()
 {
