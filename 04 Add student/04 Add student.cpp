@@ -56,12 +56,11 @@ void addDefaultStudent(StudentNode *sn) {
 	strcpy_s(sn->middleName, sizeof(sn->middleName), "Михайлович");
 	strcpy_s(sn->faculty, sizeof(sn->faculty), "10.05.04 Информационно-аналитические системы безопасности");
 	strcpy_s(sn->department, sizeof(sn->department), "Институт кибербезопасности и цифровых технологий");
-
-	sn->group = "БИСО-01-21";
-	sn->recordСardNumber = "20Б0857";
+	strcpy_s(sn->group, sizeof(sn->group), "БИСО-03-23");
+	strcpy_s(sn->recordCardNumber, sizeof(sn->recordCardNumber), "20Б0857");
 	sn->sex = true;
 	sn->startYear = 2021;
-	sn->birthDateString = "27.12.1984";
+	strcpy_s(sn->birthDateString, sizeof(sn->birthDateString), "27.12.1984");
 	ExamsResultsClass* er = new ExamsResultsClass();
 	er->add(0, "Яыки программирования 1", 5);
 	er->add(0, "Математика 1", 5);
@@ -70,6 +69,7 @@ void addDefaultStudent(StudentNode *sn) {
 	er->add(1, "Математика 2", 5);
 	er->add(1, "Физкультура 2", true);
 	setExamsResultsData(er, sn);
+	delete er;
 }
 
 void setExamsResultsData(ExamsResultsClass* er, StudentNode* sn) {
@@ -93,6 +93,6 @@ int main()
     //erc->editExamsResults();
 
 	StudentNode* st = new StudentNode();
-	addDefaultStudent
+	addDefaultStudent(st);
 }
 
