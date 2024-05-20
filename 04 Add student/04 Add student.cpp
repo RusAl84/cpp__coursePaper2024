@@ -228,6 +228,9 @@ void editStudent(StudentNode* sn)
 			break;
 		case 11:
 			ce->setLabel("Просмотреть/ изменить оценки.");
+			ExamsResultsClass* erc = new ExamsResultsClass();
+			erc->editExamsResults();
+			delete erc;
 			//sn = getStudentNode();
 			for (int i = 0; i < 9; i++)
 				for (int j = 0; j < 10; j++) {

@@ -253,8 +253,5 @@ public:
 	//		avr = sum / count;
 	//	return avr;
 	//}
-
-
-
 };
 
