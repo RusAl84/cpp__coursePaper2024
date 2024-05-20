@@ -1,31 +1,21 @@
 ﻿#include <iostream>
 #include <Windows.h>
 #include "../03 ExamsResultsClass/ExamsResultsClass.h"
-#define lenName 20
-#define sesCount 11 // данные о сессиях 5,5 лет для БИСО 
-// для БИСО 11 семестров, 
-// для БББО 8 семестров - 4 года
-#define namesCount 10
+
 
 using namespace std;
 
-struct ExamsRecords {
-	char name[lenName]; // Название дисциплины
-	int mark;
-	// 0 - не зачтено
-	// 1 - зачтено  
-	// 2,3,4,5 - оценки
-	bool isEmpty; // флаг о том, что ячейка массива пуста (ячейка пуста? да или нет)
-};
+//struct ExamsRecords {   // !!!описание структуры находится в "../03 ExamsResultsClass/ExamsResultsClass.h"
+// !!! Всё в одном месте
 
 struct StudentNode
 {
 	char surName[20]; // Фамилия
 	char name[20]; // Имя
 	char middleName[20]; // Отчество
-	char faculty[30]; // Факультет (название института)
-	char department[30]; // Название кафедры
-	char group[16]; // шифр группы кафедры
+	char faculty[60]; // Факультет (название института)
+	char department[60]; // Название кафедры
+	char group[20]; // шифр группы кафедры
 	char recordCardNumber[20]; // номер зачетной книжки
 	// int recordCardNumber; // для некоторых вариантов заданий допустимо 
 							 // и удобнее использовать целочисленное значение зачетной книжки
@@ -48,6 +38,7 @@ struct StudentNode
 };
 
 
+
 void addDefaultStudent(StudentNode *sn) {
 	//sn->id = 0;
 
@@ -68,20 +59,23 @@ void addDefaultStudent(StudentNode *sn) {
 	er->add(1, "Яыки программирования 2", 5);
 	er->add(1, "Математика 2", 5);
 	er->add(1, "Физкультура 2", true);
-	setExamsResultsData(sn,er);
-	delete er;
-}
-
-void setExamsResultsData(StudentNode* sn, ExamsResultsClass* er) {
 	for (int i = 0; i < sesCount; i++)
 		for (int j = 0; j < namesCount; j++) {
 			sn->examsRecordsData[i][j].isEmpty = er->data[i][j].isEmpty;
-			sn->examsRecordsData[i][j].mark = er->data[i][j].mark;
-			//sn->examsRecordsData[i][j].name = er->data[i][j].name;
-			strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), er->data[i][j].name);
-
+			if (sn->examsRecordsData[i][j].isEmpty)
+			{ 
+				sn->examsRecordsData[i][j].mark = 0;
+				strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), "");
+			}
+			else
+			{
+				sn->examsRecordsData[i][j].mark = er->data[i][j].mark;
+				strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), er->data[i][j].name);
+			}
 		}
+	delete er;
 }
+
 
 
 bool editSex() {
@@ -115,6 +109,7 @@ void editStudent(StudentNode* sn)
 	int resultStudDataMenu = 1;
 	const int exitStudDataMenu = 0;
 	ClassEdit* ce = new  ClassEdit();
+	ExamsResultsClass* erc = new ExamsResultsClass();
 	studDataMenu->addItem("Выход");   //0
 	studDataMenu->addItem("Добавить/изменить фамилию"); //1
 	studDataMenu->addItem("Добавить/изменить имя");   //2
@@ -134,8 +129,8 @@ void editStudent(StudentNode* sn)
 		studDataMenu->addTitleItem("Фамилия: " + string(sn->surName) + " Имя: " + string(sn->name) + " Отчество: " + string(sn->middleName));
 		string sexString = "";
 		if (sn->sex) 
-			sexString = "ve;crjq";
-		else { sexString = "девочка;)"; }
+			sexString = "мужской";
+		else { sexString = "женский"; }
 		studDataMenu->addTitleItem("пол: " + sexString + " дата рождения: " + string(sn->birthDateString) + " год поступления:" + std::to_string(sn->startYear));
 		studDataMenu->addTitleItem("Номер зачетной книжки: " + string(sn->recordCardNumber) + " Группа: " + string(sn->group));
 		studDataMenu->addTitleItem("Институт: " + string(sn->faculty));
@@ -145,7 +140,6 @@ void editStudent(StudentNode* sn)
 		string tmpString = "";
 		int year = 0;
 		int startYear = 0;
-		ExamsRecords oldExamsRecordsData[9][10];
 		switch (resultStudDataMenu) {
 		case 0:
 			resultStudDataMenu = exitStudDataMenu;
@@ -184,7 +178,7 @@ void editStudent(StudentNode* sn)
 			break;
 		case 9:
 			ce->setLabel("Введите год поступления в ВУЗ. ");
-			startYear = ce->setDataInt(1900, 2021);
+			startYear = ce->setDataInt(1996, 2023, 2023);
 			//tmpString = sb->split(sn->birthDateString.c_str(), '.', 3);
 			year = atoi(tmpString.c_str());
 			if (year == 0)
@@ -204,9 +198,9 @@ void editStudent(StudentNode* sn)
 			break;
 		case 10:
 			ce->setLabel("Введите день рождения. ");
-			day = ce->setDataInt(1, 31);
+			day = ce->setDataInt(1, 31, 31);
 			ce->setLabel("Введите месяц рождения. ");
-			month = ce->setDataInt(1, 12);
+			month = ce->setDataInt(1, 12, 12);
 			ce->setLabel("Введите год рождения. ");
 			year = ce->setDataInt(1900, 2014, 2004);
 			if (sn->startYear < 1990) {
@@ -228,27 +222,42 @@ void editStudent(StudentNode* sn)
 			break;
 		case 11:
 			ce->setLabel("Просмотреть/ изменить оценки.");
-			ExamsResultsClass* erc = new ExamsResultsClass();
-			erc->editExamsResults();
 			for (int i = 0; i < sesCount; i++)
-				for (int j = 0; namesCount < 10; j++) {
+				for (int j = 0; j < namesCount; j++) {
 					erc->data[i][j].isEmpty = sn->examsRecordsData[i][j].isEmpty;
-					erc->data[i][j].mark = sn->examsRecordsData[i][j].mark;
-					strcpy_s(erc->data[i][j].name, sizeof(erc->data[i][j].name), sn->examsRecordsData[i][j].name);
+					if (erc->data[i][j].isEmpty)
+					{
+						erc->data[i][j].mark = 0;
+						strcpy_s(erc->data[i][j].name, sizeof(erc->data[i][j].name), "");
+					}
+					else
+					{
+						erc->data[i][j].mark = sn->examsRecordsData[i][j].mark;
+						strcpy_s(erc->data[i][j].name, sizeof(erc->data[i][j].name), sn->examsRecordsData[i][j].name);
+					}
 				}
 			erc->editExamsResults();
 			for (int i = 0; i < sesCount; i++)
 				for (int j = 0; j < namesCount; j++) {
 					sn->examsRecordsData[i][j].isEmpty = erc->data[i][j].isEmpty;
-					sn->examsRecordsData[i][j].mark = erc->data[i][j].mark;
-					strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), erc->data[i][j].name);
+					if (sn->examsRecordsData[i][j].isEmpty)
+					{
+						sn->examsRecordsData[i][j].mark = 0;
+						strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), "");
+					}
+					else
+					{
+						sn->examsRecordsData[i][j].mark = erc->data[i][j].mark;
+						strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), erc->data[i][j].name);
+					}
 				}
-			delete erc;
+			
 			break;
 		default:
 			break;
 		}
 	}
+	delete erc;
 }
 
 
@@ -270,8 +279,8 @@ double getAvrMarks(StudentNode* sn) {
 double getMarks45(StudentNode* sn) {
 	double sum = 0;
 	double count = 0;
-	for (int i = 0; i < 9; i++)
-		for (int j = 0; j < 10; j++)
+	for (int i = 0; i < sesCount; i++)
+		for (int j = 0; j < namesCount; j++)
 			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 1) {
 				count++;
 				if (sn->examsRecordsData[i][j].mark > 3)
@@ -283,40 +292,6 @@ double getMarks45(StudentNode* sn) {
 	return proc;
 }
 
-//int getCountMarks5(StudentNode* sn, List <int> rangeSem) {
-//	int count = 0;
-//	for (auto i : rangeSem)
-//		for (int j = 0; j < 10; j++)
-//			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 4) {
-//				count++;
-//			}
-//	return count;
-//}
-//StudentNode* getCountMarks543(StudentNode* sn) {
-//	int count = 0;
-//	for (int i = 0; i < 9; i++)
-//		for (int j = 0; j < 10; j++)
-//			if (sn->examsRecordsData[i][j].isEmpty == false and sn->examsRecordsData[i][j].mark > 1) {
-//				if (sn->examsRecordsData[i][j].mark == 5)
-//					sn->countMarks5++;
-//				if (sn->examsRecordsData[i][j].mark == 4)
-//					sn->countMarks4++;
-//				if (sn->examsRecordsData[i][j].mark == 3)
-//					sn->countMarks3++;
-//				count++;
-//			}
-//	if (count > 0) {
-//		sn->countMarks5 = sn->countMarks5 / count;
-//		sn->countMarks4 = sn->countMarks4 / count;
-//		sn->countMarks3 = sn->countMarks3 / count;
-//	}
-//	else {
-//		sn->countMarks5 = 0;
-//		sn->countMarks4 = 0;
-//		sn->countMarks3 = 0;
-//	}
-//	return sn;
-//}
 
 int main()
 {
@@ -326,8 +301,8 @@ int main()
     cout << "04 Add student\n";
     //ExamsResultsClass* erc = new ExamsResultsClass();
     //erc->editExamsResults();
-
 	StudentNode* st = new StudentNode();
 	addDefaultStudent(st);
+	editStudent(st);
 }
 

@@ -3,7 +3,7 @@
 #include <string.h>
 #include <string>
 #include "../02 ClassMenu/ClassMenu.h"
-#define lenName 20
+#define lenName 40
 #define sesCount 11
 #define namesCount 10
 
