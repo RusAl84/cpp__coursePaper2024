@@ -258,6 +258,8 @@ void editStudent(StudentNode* sn)
 		}
 	}
 	delete erc;
+	delete studDataMenu;
+	delete ce;
 }
 
 
@@ -299,8 +301,6 @@ int main()
     SetConsoleCP(1251); // Ввод с консоли в кодировке 1251
     SetConsoleOutputCP(1251);
     cout << "04 Add student\n";
-    //ExamsResultsClass* erc = new ExamsResultsClass();
-    //erc->editExamsResults();
 	StudentNode* st = new StudentNode();
 	addDefaultStudent(st);
 	editStudent(st);
