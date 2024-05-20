@@ -48,13 +48,15 @@ struct StudentNode
 };
 
 
-void addDefaultStudent(StudentNode *st) {
-	sn->id = 0;
-	sn->surName = "Русаков";
-	sn->name = "Алексей";
-	sn->middleName = "Михайлович";
-	sn->faculty = "10.05.04 Информационно-аналитические системы безопасности";
-	sn->department = "Институт комплексной безопасности и специального приборостроения";
+void addDefaultStudent(StudentNode *sn) {
+	//sn->id = 0;
+
+	strcpy_s(sn->surName, sizeof(sn->surName), "Русаков");
+	strcpy_s(sn->name, sizeof(sn->name), "Алексей");
+	strcpy_s(sn->middleName, sizeof(sn->middleName), "Михайлович");
+	strcpy_s(sn->faculty, sizeof(sn->faculty), "10.05.04 Информационно-аналитические системы безопасности");
+	strcpy_s(sn->department, sizeof(sn->department), "Институт кибербезопасности и цифровых технологий");
+
 	sn->group = "БИСО-01-21";
 	sn->recordСardNumber = "20Б0857";
 	sn->sex = true;
@@ -70,7 +72,16 @@ void addDefaultStudent(StudentNode *st) {
 	setExamsResultsData(er, sn);
 }
 
+void setExamsResultsData(ExamsResultsClass* er, StudentNode* sn) {
+	for (int i = 0; i < sesCount; i++)
+		for (int j = 0; j < namesCount; j++) {
+			sn->examsRecordsData[i][j].isEmpty = er->data[i][j].isEmpty;
+			sn->examsRecordsData[i][j].mark = er->data[i][j].mark;
+			//sn->examsRecordsData[i][j].name = er->data[i][j].name;
+			strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), er->data[i][j].name);
 
+		}
+}
 
 int main()
 {
