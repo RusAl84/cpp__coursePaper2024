@@ -35,6 +35,103 @@ struct StudentNode
 class StudentClass
 {
 public:
+	//list
+	struct StudentNode* myHead;
+	int countItem = 0;
+	//Визуализация для добавления и удаления элементов в односвязном списке.
+	//https://www.cs.usfca.edu/~galles/visualization/StackLL.html
+
+	void addItem()
+	{
+		struct StudentNode* newItem = new StudentNode();
+		//newItem->StudentNode = data;
+		addDefaultStudent(newItem);
+		editStudent(newItem);
+		if (countItem == 0)
+			newItem->next = NULL;
+		else
+			newItem->next = myHead;
+		myHead = newItem;
+		countItem++;
+	}
+
+	void insertItem(int index) {
+		if (not (index >= 0 and index <= countItem and countItem >= 0))
+			return;
+		if (index == 0){
+			addItem();
+			}
+		else 
+		{
+			struct StudentNode* current = myHead;
+			for (int i = 0; i < index - 1; i++) {
+				current = current->next;
+			}
+			struct StudentNode* newItem = new StudentNode();
+			//newItem->data = data;
+			addDefaultStudent(newItem);
+			editStudent(newItem);
+			newItem->next = current->next;
+			current->next = newItem;
+			countItem++;
+		}
+	}
+
+
+	void editItem(int index) {
+		if (index >= 0 and index < countItem and countItem>0) {
+			struct StudentNode* current = myHead;
+			for (int i = 0; i < index; i++) {
+				current = current->next;
+				//cout << "+" << current->data;
+			}
+			//current->data = data;
+			editStudent(current);
+		}
+		else {
+			cout << endl << "Ошибка индекс не в диапазоне";
+		}
+	}
+
+	void deleteItem(int index) {
+		if (index >= 0 and index < countItem and countItem>0) {
+			struct StudentNode* current = myHead;
+			struct StudentNode* old;
+			if (index == 0) {
+				old = myHead;
+				myHead = current->next;
+				delete old;
+				countItem--;
+			}
+			else {
+				int i = 0;
+				while (current) {
+					if (i == index - 1) {
+						old = current->next->next;
+						delete current->next;
+						current->next = old;
+						countItem--;
+						break;
+					}
+					i++;
+					current = current->next;
+				}
+			}
+		}
+
+	}
+
+	void printMyList() {
+		struct StudentNode* current = myHead;
+		cout << endl;
+		while (current) {
+			//cout << " " << current->data;
+			cout << " " << current->surName;
+			current = current->next;
+		}
+	}
+	
+	//list
 
 
 	void addDefaultStudent(StudentNode* sn) {
