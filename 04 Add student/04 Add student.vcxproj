@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="04 Add student.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\03 ExamsResultsClass\ExamsResultsClass.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
