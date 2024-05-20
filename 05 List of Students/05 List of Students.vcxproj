@@ -24,6 +24,7 @@
     <ProjectGuid>{b473793b-e4b6-4445-8b32-59d1a3be65e4}</ProjectGuid>
     <RootNamespace>My05ListofStudents</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>05 Class Student</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,6 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="05 List of Students.cpp" />
+    <ClCompile Include="StudentClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StudentClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
