@@ -2,37 +2,11 @@
 #include <iostream>
 #include <Windows.h>
 #include "../03 ExamsResultsClass/ExamsResultsClass.h"
+#include "../07 ClassFileWraper/ClassFileWraper.h"
+#include "StudentNode.h"
 
-struct StudentNode
-{
-	char surName[20]; // Фамилия
-	char name[20]; // Имя
-	char middleName[20]; // Отчество
-	char faculty[60]; // Факультет (название института)
-	char department[60]; // Название кафедры
-	char group[20]; // шифр группы кафедры
-	char recordCardNumber[20]; // номер зачетной книжки
-	// int recordCardNumber; // для некоторых вариантов заданий допустимо 
-							 // и удобнее использовать целочисленное значение зачетной книжки
-	char birthDateString[20]; // дата рождения 
-	// int birthDay;
-	// int birthMonth;
-	// int birthYear;
-	bool sex; // Флаг пола true - мальчик
-	// false - девочка
-// Предполагается бинарный пол
-	int startYear; // Год начала обучения
-	ExamsRecords examsRecordsData[sesCount][namesCount]; // данные о сессиях 5,5 лет для БИСО 
-	// для БИСО 11 семестров, 
-	// для БББО 8 семестров - 4 года
-	StudentNode* next; // указатель на следующий элемент для динамического списка
-	// заранее его здесь создам, чтобы получить оценку хорошо и выше
-	// можно добавить позже
-// int id; // id вспомогательная переменная (удобно для некоторых заданий) 
-// float avrMark; // средний балл по оценкам (удобно для некоторых заданий)
-};
 
-class StudentClass
+class StudentClass 
 {
 public:
 
@@ -73,8 +47,6 @@ public:
 		sn->next = NULL;
 		delete er;
 	}
-
-
 
 	bool editSex() {
 		ClassMenu* sexMenu = new ClassMenu();
@@ -192,7 +164,6 @@ public:
 						_getch();
 					}
 				}
-
 				break;
 			case 10:
 				ce->setLabel("Введите день рождения. ");
@@ -414,9 +385,10 @@ public:
 		mainMenu->addTitleItem("Главное меню");
 		mainMenu->addItem("Просмотреть список студетов (удалить или изменить данные)"); //0
 		mainMenu->addItem("Добавить данные о студенте в БД"); //1
-		mainMenu->addItem("Сохранить БД студентов в файл"); //2
-		mainMenu->addItem("Выполнить вариант XX"); //3
-		mainMenu->addItem("Выход"); //4
+		mainMenu->addItem("Загрузить студентов из файла БД"); //2
+		mainMenu->addItem("Сохранить БД студентов в файл"); //3
+		mainMenu->addItem("Выполнить вариант XX"); //4
+		mainMenu->addItem("Выход"); //5
 		int resultSelectedItem = 0;
 		int exitInt = 4;
 		ClassMenu* studentsMenu = new ClassMenu();
@@ -432,6 +404,13 @@ public:
 		int endYear = 0;
 		int year = 0;
 		string firstPartString;
+		//sort
+		ClassFileWraper* cfw = new ClassFileWraper();
+		strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
+		cfw->mode = true; // Binary
+		cfw->loadData(myHead);
+		countItem = cfw->countItem;
+		//sort
 		while (resultSelectedItem != exitInt) {
 			mainMenu->run();
 			resultSelectedItem = mainMenu->getSelectedItem();
@@ -492,13 +471,19 @@ public:
 			case 1: //Добавить студента
 				addItem();
 				break;
-			case 2: //Загрузить студентов из файла
-				//
+			case 2: //Загрузить студентов из файла БД
+				//sort 
+				cfw->loadData(myHead);
+				countItem = cfw->countItem;
 				break;
-			case 3: //Сохранить студентов в файл
-				//
+			case 3: //Сохранить БД студентов в файл
+				//sort
+				cfw->saveData(myHead);
 				break;
 			case 4:
+				resultSelectedItem = exitInt;
+				break;
+			case 5:
 				resultSelectedItem = exitInt;
 				break;
 			default:
