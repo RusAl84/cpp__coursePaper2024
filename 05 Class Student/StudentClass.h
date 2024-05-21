@@ -386,6 +386,9 @@ public:
 		}
 	}
 
+	//
+
+
 	void mainMenu() {
 		ClassMenu* mainMenu = new ClassMenu();
 		mainMenu->addTitleItem("Главное меню");
@@ -414,7 +417,7 @@ public:
 		ClassFileWraper* cfw = new ClassFileWraper();
 		strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
 		cfw->mode = true; // Binary
-		cfw->loadData(myHead);
+		this->myHead = cfw->loadData();
 		countItem = cfw->countItem;
 		//sort
 		while (resultSelectedItem != exitInt) {
@@ -479,7 +482,7 @@ public:
 				break;
 			case 2: //Загрузить студентов из файла БД
 				//sort 
-				cfw->loadData(myHead);
+				this->myHead = cfw->loadData();
 				countItem = cfw->countItem;
 				break;
 			case 3: //Сохранить БД студентов в файл
@@ -498,5 +501,17 @@ public:
 		}
 		//_getch();
 	}
+
+	//sort
+	void processingAvrMarks() {
+		struct StudentNode* current = myHead;
+		while (current) {
+			current->
+			current = current->next;
+		}
+	}
+	//sort
+
+
 };
 
