@@ -28,33 +28,39 @@ public:
 	void saveData(StudentNode* sn) {
 		struct StudentNode* current = sn;
 		delFile();
-		FILE* binaryFile;
-		fopen_s(&binaryFile, filename, "wb+");
-		while (current) {
-			fwrite(current, sizeof(StudentNode), 1, binaryFile);
-			current = current->next;
+		if (mode)
+		{
+			FILE* binaryFile;
+			fopen_s(&binaryFile, filename, "wb+");
+			while (current) {
+				fwrite(current, sizeof(StudentNode), 1, binaryFile);
+				current = current->next;
+			}
+			fclose(binaryFile);
 		}
-		fclose(binaryFile);
 	}
 
 	void loadData(StudentNode* sn) {
 		if (fileExists()) {
-			struct StudentNode* myHead;
-			struct StudentNode* newItem = new StudentNode();
-			FILE* binaryFile;
-			fopen_s(&binaryFile, filename, "r");
-			int countItem = 0;
-			while (fread_s(newItem, sizeof(StudentNode), sizeof(StudentNode), 1, binaryFile) == 1)
+			if (mode)
 			{
-				cout << endl<< newItem->surName;
-				if (countItem == 0)
-					newItem->next = NULL;
-				else
-					newItem->next = myHead;
-				myHead = newItem;
-				countItem++;
+				struct StudentNode* myHead;
+				struct StudentNode* newItem = new StudentNode();
+				FILE* binaryFile;
+				fopen_s(&binaryFile, filename, "r");
+				int countItem = 0;
+				while (fread_s(newItem, sizeof(StudentNode), sizeof(StudentNode), 1, binaryFile) == 1)
+				{
+					cout << endl<< newItem->surName;
+					if (countItem == 0)
+						newItem->next = NULL;
+					else
+						newItem->next = myHead;
+					myHead = newItem;
+					countItem++;
+				}
+				fclose(binaryFile);
 			}
-			fclose(binaryFile);
 		}
 	}
 };
