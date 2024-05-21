@@ -36,7 +36,7 @@ class StudentClass
 {
 public:
 
-	void addDefaultStudent(StudentNode* sn) {
+	static void addDefaultStudent(StudentNode* sn) {
 		//sn->id = 0;
 
 		strcpy_s(sn->surName, sizeof(sn->surName), "Русаков");
@@ -473,7 +473,8 @@ public:
 							}
 							else {
 								int num = resultDel - 1;
-								sdb->DataBase.erase(std::next(sdb->DataBase.begin(), num));
+								//sdb->DataBase.erase(std::next(sdb->DataBase.begin(), num));
+								deleteItem(num);
 								break;
 							}
 						}
@@ -482,29 +483,21 @@ public:
 					{
 						int num = resultStudentSelectedItem - 2;
 						editItem(num);
-						//int num = resultStudentSelectedItem - 2; //!
-						//sn = &sdb->DataBase.at(num);
-						//string oldRecordСardNumber = "";
-						//oldRecordСardNumber = sn->recordСardNumber;
-						//st->editStudent(sn);
-
-						//if (sdb->getSameRecordСardNumber(sn->recordСardNumber) > 1)
-						//{
-						//	sn->recordСardNumber = oldRecordСardNumber;
-						//	cout << "Ошибка введен номер зачетной книжки который уже есть в БД";
-						//	_getch();
-						//}
+						//можно сделать проверку есть ли такая ещё 
 					}
 				}
 				//resultSelectedItem = exitInt;
 				break;
-			case 1:
+			case 1: //Добавить студента
 				addItem();
 				break;
-			case 2: //Сохранить в файл
-				//sdb->saveDataToFile(sdb->FileName);
+			case 2: //Загрузить студентов из файла
+				//
 				break;
-			case 3:
+			case 3: //Сохранить студентов в файл
+				//
+				break;
+			case 4:
 				resultSelectedItem = exitInt;
 				break;
 			default:
@@ -513,7 +506,5 @@ public:
 		}
 		//_getch();
 	}
-
-
 };
 
