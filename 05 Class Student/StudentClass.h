@@ -70,6 +70,7 @@ public:
 					strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), er->data[i][j].name);
 				}
 			}
+		sn->next = NULL;
 		delete er;
 	}
 
