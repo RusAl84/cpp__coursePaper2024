@@ -490,7 +490,10 @@ public:
 				cfw->saveData(myHead);
 				break;
 			case 4:
-				resultSelectedItem = exitInt;
+				cout << endl << getElement(0)->surName;
+				cout << endl << getElement(1)->surName;
+				cout << endl << getElement(2)->surName;
+				_getch();
 				break;
 			case 5:
 				resultSelectedItem = exitInt;
@@ -506,9 +509,23 @@ public:
 	void processingAvrMarks() {
 		struct StudentNode* current = myHead;
 		while (current) {
-			current->
+			current->avrMark = getAvrMarks(current);
 			current = current->next;
 		}
+	}
+
+	StudentNode* getElement(int ind) {
+		struct StudentNode* current = myHead;
+		for (int i = 0; i < ind; i++) {
+			current = current->next;
+		}
+		return current;
+	}
+	void  setElement(int ind, int element) {
+	
+	}
+	void AvrMarks() {
+
 	}
 	//sort
 
