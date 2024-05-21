@@ -24,7 +24,5 @@ int main()
 
     cfw->saveData(st->myHead);
 	cfw->loadData(sn);
-
-	
 }
 
