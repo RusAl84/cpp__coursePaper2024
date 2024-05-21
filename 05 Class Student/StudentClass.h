@@ -376,15 +376,7 @@ public:
 		return current;
 	}
 
-	void printAllSurName_Name_MName_bYaear() {
-		struct StudentNode* current = myHead;
-		cout << endl;
-		while (current) {
-			//cout << " " << current->data;
-			cout << string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString)  << endl;
-			current = current->next;
-		}
-	}
+
 
 	//
 
@@ -489,11 +481,12 @@ public:
 				//sort
 				cfw->saveData(myHead);
 				break;
-			case 4:
-				cout << endl << getElement(0)->surName;
-				cout << endl << getElement(1)->surName;
-				cout << endl << getElement(2)->surName;
+			case 4: //Выполнить вариант XX
+				processingAvrMarks();
+				sort();
+				printAllSurName_Name_MName_bYaear_AvrMarks();
 				_getch();
+				resultSelectedItem = 0;
 				break;
 			case 5:
 				resultSelectedItem = exitInt;
@@ -521,11 +514,60 @@ public:
 		}
 		return current;
 	}
-	void  setElement(int ind, int element) {
-	
+	void  setElement(int ind, StudentNode* element) {
+		struct StudentNode* current = myHead;
+		for (int i = 0; i < ind; i++) {
+			current = current->next;
+		}
+		strcpy_s(current->surName, sizeof(current->surName), element->surName);
+		strcpy_s(current->name, sizeof(current->name), element->name);
+		strcpy_s(current->middleName, sizeof(current->middleName), element->middleName);
+		strcpy_s(current->faculty, sizeof(current->faculty), element->faculty);
+		strcpy_s(current->department, sizeof(current->department), element->department);
+		strcpy_s(current->group, sizeof(current->group), element->group);
+		strcpy_s(current->recordCardNumber, sizeof(current->recordCardNumber), element->recordCardNumber);
+		current->sex = element->sex;
+		current->startYear = element->startYear;
+		strcpy_s(current->birthDateString, sizeof(current->birthDateString), element->birthDateString);
+		for (int i = 0; i < sesCount; i++)
+			for (int j = 0; j < namesCount; j++) {
+				current->examsRecordsData[i][j].isEmpty = element->examsRecordsData[i][j].isEmpty;
+				if (current->examsRecordsData[i][j].isEmpty)
+				{
+					current->examsRecordsData[i][j].mark = 0;
+					strcpy_s(current->examsRecordsData[i][j].name, sizeof(current->examsRecordsData[i][j].name), "");
+				}
+				else
+				{
+					current->examsRecordsData[i][j].mark = element->examsRecordsData[i][j].mark;
+					strcpy_s(current->examsRecordsData[i][j].name, sizeof(current->examsRecordsData[i][j].name), element->examsRecordsData[i][j].name);
+				}
+			}
+		current->avrMark = element->avrMark; //!!!!
 	}
-	void AvrMarks() {
+	void sort() {
+		//https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+		//https://www.geeksforgeeks.org/bubble-sort/
+		int size = countItem;
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size - 1; j++) {
+				if (getElement(j)->avrMark > getElement(j + 1)->avrMark) {
+					struct StudentNode* tmp = new StudentNode(); // создали дополнительную временную переменную
+					setElement(j, getElement(j + 1)); // меняем местами
+					setElement(j + 1, tmp); // значения элементов
+				}
+			}
+		}
+	}
 
+	void printAllSurName_Name_MName_bYaear_AvrMarks() {
+		struct StudentNode* current = myHead;
+		cout << endl;
+		while (current) {
+			//cout << " " << current->data;
+			cout << string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString) + " " + to_string(current->avrMark) << endl;
+			current = current->next;
+		}
 	}
 	//sort
 
