@@ -267,6 +267,12 @@ public:
 	//list
 	struct StudentNode* myHead;
 	int countItem = 0;
+
+	StudentClass() {
+		countItem = 0;
+		myHead = NULL;
+	}
+
 	//Визуализация для добавления и удаления элементов в односвязном списке.
 	//https://www.cs.usfca.edu/~galles/visualization/StackLL.html
 
