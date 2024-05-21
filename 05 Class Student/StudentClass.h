@@ -442,16 +442,16 @@ public:
 					studentsMenu->addItem("Выход");
 					studentsMenu->addItem("Удалить данные о студенте");
 					struct StudentNode* current = myHead;
-					for (int i = 0; i < countItem-1; i++) {
-						current = current->next;
+					while (current) {
 						string tmpString = string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString);
 						studentsMenu->addItem(tmpString); //добавить в меню студентов
+						current = current->next;
 					}
 					studentsMenu->run();
 					resultStudentSelectedItem = studentsMenu->getSelectedItem();
-					if (resultStudentSelectedItem == exitIntStudentMenu) {
-						break;
-					}
+					//if (resultStudentSelectedItem == exitIntStudentMenu) {
+					//	break;
+					//}
 					if (resultStudentSelectedItem == 1) //удаление данных о студенте
 					{
 						delStudentsMenu->eraseAll();
@@ -459,25 +459,24 @@ public:
 						delStudentsMenu->addItem("Выход");
 						int resultDel = 1;
 						const int exitDel = 0;
-						//for (int i = 0; i < sdb->DataBase.size(); i++)
-						//{ // добавить пункты меню ФИО студентов
-						//	sn = &sdb->DataBase.at(i);
-						//	string tmpString = sn->surName + " " + sn->name + " " + sn->middleName + " " + sn->group;
-						//	delStudentsMenu->addItem(tmpString); //добавить в меню студентов
-						//	//sn = sn->next;
-						//}
-						//while (resultDel != exitDel) {
-						//	delStudentsMenu->run();
-						//	resultDel = delStudentsMenu->getSelectedItem();
-						//	if (resultDel == exitDel) {
-						//		break;
-						//	}
-						//	else {
-						//		int num = resultDel - 1;
-						//		sdb->DataBase.erase(std::next(sdb->DataBase.begin(), num));
-						//		break;
-						//	}
-						//}
+						struct StudentNode* current = myHead;
+						while (current) {
+							string tmpString = string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString);
+							delStudentsMenu->addItem(tmpString); //добавить в меню студентов
+							current = current->next;
+						}
+						while (resultDel != exitDel) {
+							delStudentsMenu->run();
+							resultDel = delStudentsMenu->getSelectedItem();
+							if (resultDel == exitDel) {
+								break;
+							}
+							else {
+								int num = resultDel - 1;
+								sdb->DataBase.erase(std::next(sdb->DataBase.begin(), num));
+								break;
+							}
+						}
 					}
 					if (resultStudentSelectedItem > 1)
 					{
@@ -497,7 +496,7 @@ public:
 						//}
 					}
 				}
-				resultSelectedItem = exitInt;
+				//resultSelectedItem = exitInt;
 				break;
 			case 1:
 				addItem();
