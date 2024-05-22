@@ -10,7 +10,7 @@ int main()
     cout << "Эксперименты с вводом данных!\n";
 
     string surName;
-    ce->setLabel("Введите фамилию. ");
+    ce->setLabel("Введите фамилию: ");
     surName = ce->setDataString("Русаков");
 
     int day;
