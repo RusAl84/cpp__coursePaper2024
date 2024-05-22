@@ -23,6 +23,6 @@ int main()
 	st->addItem();
 
     cfw->saveData(st->myHead);
-	cfw->loadData(sn);
+	cfw->loadData();
 }
 

@@ -408,7 +408,7 @@ public:
 		//sort
 		ClassFileWraper* cfw = new ClassFileWraper();
 		strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
-		cfw->mode = true; // Binary
+		cfw->mode = true; // Binary     //!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this->myHead = cfw->loadData();
 		countItem = cfw->countItem;
 		//sort
@@ -474,7 +474,7 @@ public:
 				break;
 			case 2: //Загрузить студентов из файла БД
 				//sort 
-				this->myHead = cfw->loadData();
+				this->myHead = cfw->loadData();  //todo delete memory leak
 				countItem = cfw->countItem;
 				break;
 			case 3: //Сохранить БД студентов в файл
@@ -514,6 +514,7 @@ public:
 		}
 		return current;
 	}
+
 	void  setElement(int ind, StudentNode* element) {
 		struct StudentNode* current = myHead;
 		for (int i = 0; i < ind; i++) {

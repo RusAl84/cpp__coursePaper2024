@@ -29,7 +29,7 @@ public:
 	void saveData(StudentNode* sn) {
 		struct StudentNode* current = sn;
 		delFile();
-		if (mode)
+		if (mode) //binary
 		{
 			FILE* binaryFile;
 			fopen_s(&binaryFile, filename, "wb+");
@@ -43,7 +43,7 @@ public:
 
 	StudentNode* loadData() {
 		if (fileExists()) {
-			if (mode)
+			if (mode)  //binary
 			{
 				struct StudentNode* myHead = NULL;
 				countItem = 0;

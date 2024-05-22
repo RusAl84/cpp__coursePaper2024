@@ -6,7 +6,7 @@
 #define lenName 40
 #define sesCount 11
 #define namesCount 10
-
+//https://learn.microsoft.com/ru-ru/visualstudio/ide/class-designer/designing-and-viewing-classes-and-types?view=vs-2022
 
 using namespace std;
 

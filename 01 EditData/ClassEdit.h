@@ -112,13 +112,7 @@ public:
 	}
 
 
-	/// <summary>
-	/// ddddd
-	/// </summary>
-	/// <param name="startRange">sdds</param>
-	/// <param name="endRange">xxx</param>
-	/// <param name="dataInt">yyy</param>
-	/// <returns></returns>
+
 	int setDataInt(int startRange, int endRange, int dataInt) {
 		label = label + " Предыдущее значение: " + to_string(dataInt);
 		draw();

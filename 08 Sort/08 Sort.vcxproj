@@ -129,6 +129,17 @@
   <ItemGroup>
     <ClCompile Include="08 Sort.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\01 EditData\ClassEdit.h" />
+    <ClInclude Include="..\02 ClassMenu\ClassMenu.h" />
+    <ClInclude Include="..\03 ExamsResultsClass\ExamsResultsClass.h" />
+    <ClInclude Include="..\05 Class Student\StudentClass.h" />
+    <ClInclude Include="..\05 Class Student\StudentNode.h" />
+    <ClInclude Include="..\07 ClassFileWraper\ClassFileWraper.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
