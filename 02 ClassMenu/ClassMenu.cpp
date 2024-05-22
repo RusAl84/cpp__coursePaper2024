@@ -14,11 +14,11 @@ bool editSex() {
 		resultSelectedItem = sexMenu->getSelectedItem();
 		switch (resultSelectedItem) {
 		case 0:
-			return true;
+			return true; // мужской
 			resultSelectedItem = exitItem;
 			break;
 		case 1:
-			return false;
+			return false; // женский
 			resultSelectedItem = exitItem;
 			break;
 		default:
