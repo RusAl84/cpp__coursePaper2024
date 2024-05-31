@@ -29,7 +29,7 @@ public:
     //openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -k PASS
     //
     //ENCRYPT(non-interactive) :
-    //openssl enc -aes-256-cbc -in file.txt.enc -out file.txt  -iter 29 -pass pass:mysecret
+    //openssl enc -aes-256-cbc -in file.txt.enc -out file.txt -iter 29 -pass pass:mysecret
     //
     //DECRYPT(non-interactive) :
     //openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -pass pass:mysecret
@@ -41,10 +41,10 @@ public:
             + secure_db_filename +" -iter 29 -pass pass:" + password;
         cout << endl << command << endl;
         system(command.c_str());
-        //if (remove(db_filename.c_str()) != 0)
-        //{
-        //    cout << "[!] Ошибка удаления НЕзашифрованной базы данных!" << endl;
-        //}
+        if (remove(db_filename.c_str()) != 0)
+        {
+            cout << "[!] Ошибка удаления НЕзашифрованной базы данных!" << endl;
+        }
     }
     void Decrypt()
     {
@@ -52,10 +52,8 @@ public:
             db_filename + " -iter 29 -pass pass:" + password;
         cout << endl << command << endl;
         system(command.c_str());
-        //if (remove(secure_db_filename.c_str()) != 0) {
-        //    cout << "[!] Ошибка удаления зашифрованной базы данных!" << endl;
-        //}
+        if (remove(secure_db_filename.c_str()) != 0) {
+            cout << "[!] Ошибка удаления зашифрованной базы данных!" << endl;
+        }
     }
 };
-
-
