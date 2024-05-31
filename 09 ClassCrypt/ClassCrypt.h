@@ -13,6 +13,28 @@ public:
     string db_filename;
     string secure_db_filename;
     string password;
+
+    ClassCrypt() {
+        path_openssl = "c:\\openssl\\bin\\openssl.exe";
+        db_filename = "dataBinary.txt";
+        secure_db_filename = "secure_dataBinary.txt";
+        password = "SecretKey!";
+    }
+
+    //https://www.shellhacks.com/encrypt-decrypt-file-password-openssl/
+    //ENCRYPT(interactive) :
+    //openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -k PASS
+    //
+    //DECRYPT(interactive) :
+    //openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -k PASS
+    //
+    //ENCRYPT(non-interactive) :
+    //openssl enc -aes-256-cbc -in file.txt.enc -out file.txt  -iter 29 -pass pass:mysecret
+    //
+    //DECRYPT(non-interactive) :
+    //openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -pass pass:mysecret
+    //https://zalinux.ru/?p=4244 -iter 29
+
     void Crypt()
     {
         string command = path_openssl + " enc -aes-256-cbc -in " + db_filename +" -out " \
@@ -34,24 +56,6 @@ public:
         //    cout << "[!] Ошибка удаления зашифрованной базы данных!" << endl;
         //}
     }
-
-    ClassCrypt() {
-        path_openssl = "c:\\openssl\\bin\\openssl.exe";
-        db_filename = "dataBinary.txt";
-        secure_db_filename = "secure_dataBinary.txt";
-        password = "SecretKey!";
-    }
 };
 
-//https://www.shellhacks.com/encrypt-decrypt-file-password-openssl/
-//ENCRYPT(interactive) :
-//openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -k PASS
-//
-//DECRYPT(interactive) :
-//openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -k PASS
-//
-//ENCRYPT(non - interactive) :
-//openssl enc -aes-256-cbc -in file.txt.enc -out file.txt  -iter 29 -pass pass:mysecret
-//
-//DECRYPT(non - interactive) :
-//openssl enc -aes-256-cbc -d -in file.txt.enc -out file.txt -iter 29 -pass pass:mysecret
+
