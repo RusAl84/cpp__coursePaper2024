@@ -263,7 +263,6 @@ public:
 		return proc;
 	}
 
-
 	//list
 	struct StudentNode* myHead;
 	int countItem = 0;
@@ -378,8 +377,6 @@ public:
 
 
 	//
-
-
 	void mainMenu() {
 		ClassMenu* mainMenu = new ClassMenu();
 		mainMenu->addTitleItem("Главное меню");
@@ -481,7 +478,9 @@ public:
 				cfw->saveData(myHead);
 				break;
 			case 4: //Выполнить вариант XX
+				//printAllSurName_Name_MName_bYaear_AvrMarks();
 				processingAvrMarks();
+				//printAllSurName_Name_MName_bYaear_AvrMarks();
 				sort();
 				printAllSurName_Name_MName_bYaear_AvrMarks();
 				_getch();
@@ -552,7 +551,7 @@ public:
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size - 1; j++) {
 				if (getElement(j)->avrMark > getElement(j + 1)->avrMark) {
-					struct StudentNode* tmp = new StudentNode(); // создали дополнительную временную переменную
+					struct StudentNode* tmp = getElement(j); // создали дополнительную временную переменную
 					setElement(j, getElement(j + 1)); // меняем местами
 					setElement(j + 1, tmp); // значения элементов
 				}
@@ -568,6 +567,7 @@ public:
 			cout << string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString) + " " + to_string(current->avrMark) << endl;
 			current = current->next;
 		}
+		//_getch();
 	}
 	//sort
 
