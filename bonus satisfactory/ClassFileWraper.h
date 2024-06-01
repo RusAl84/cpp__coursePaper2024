@@ -69,21 +69,6 @@ public:
 					newItem = new StudentNode();
 				}
 				fclose(binaryFile);
-				//struct StudentNode* current = myHead;
-				//struct StudentNode*  myHead2 = NULL;
-				//int countItem2 = 0;
-				//newItem = current;
-				//while (current) {
-				//	//cout << " " << current->data;
-				//	if (countItem2 == 0)
-				//		newItem->next = NULL;
-				//	else
-				//		newItem->next = myHead2;
-				//	myHead2 = newItem;
-				//	countItem2++;
-				//	newItem = new StudentNode();
-				//	current = current->next;
-				//}
 				return myHead;
 			}
 		}
