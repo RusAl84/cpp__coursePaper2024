@@ -312,7 +312,6 @@ public:
 		}
 	}
 
-
 	void editItem(int index) {
 		if (index >= 0 and index < countItem and countItem>0) {
 			struct StudentNode* current = myHead;
