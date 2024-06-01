@@ -129,6 +129,14 @@
   <ItemGroup>
     <ClCompile Include="bonus satisfactory.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ClassEdit.h" />
+    <ClInclude Include="ClassFileWraper.h" />
+    <ClInclude Include="ClassMenu.h" />
+    <ClInclude Include="ExamsResultsClass.h" />
+    <ClInclude Include="StudentClass.h" />
+    <ClInclude Include="StudentNode.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
