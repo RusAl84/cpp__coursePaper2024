@@ -48,16 +48,23 @@ public:
 				struct StudentNode* myHead = NULL;
 				countItem = 0;
 				struct StudentNode* newItem = new StudentNode();
+				struct StudentNode* current = NULL;
 				FILE* binaryFile;
 				fopen_s(&binaryFile, filename, "r");
 				while (fread_s(newItem, sizeof(StudentNode), sizeof(StudentNode), 1, binaryFile) == 1)
 				{
-					//cout << endl<< newItem->surName;
-					if (countItem == 0)
+					if (countItem == 0) {
 						newItem->next = NULL;
-					else
-						newItem->next = myHead;
-					myHead = newItem;
+						myHead = newItem;
+					}
+					else {
+						current = myHead;
+						for (int i = 0; i < countItem - 1; i++) {
+							current = current->next;
+						}
+						newItem->next = NULL;
+						current->next = newItem;
+					}
 					countItem++;
 					newItem = new StudentNode();
 				}
