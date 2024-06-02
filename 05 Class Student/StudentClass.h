@@ -515,11 +515,8 @@ public:
 		return current;
 	}
 
-	void  setElement(int ind, StudentNode* element) {
-		struct StudentNode* current = myHead;
-		for (int i = 0; i < ind; i++) {
-			current = current->next;
-		}
+	//                                 current куда            element что
+	void  copyDataElement(StudentNode* current, StudentNode* element) {
 		strcpy_s(current->surName, sizeof(current->surName), element->surName);
 		strcpy_s(current->name, sizeof(current->name), element->name);
 		strcpy_s(current->middleName, sizeof(current->middleName), element->middleName);
@@ -546,16 +543,30 @@ public:
 			}
 		current->avrMark = element->avrMark; //!!!!
 	}
+	void  setElement(int ind, StudentNode* element) {
+		struct StudentNode* current = myHead;
+		for (int i = 0; i < ind; i++) {
+			current = current->next;
+		}
+		copyDataElement(current, element);
+	}
 	void sort() {
 		//https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 		//https://www.geeksforgeeks.org/bubble-sort/
 		int size = countItem;
+		struct StudentNode* tmp1 = new StudentNode();
+		struct StudentNode* tmp2 = new StudentNode();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size - 1; j++) {
 				if (getElement(j)->avrMark > getElement(j + 1)->avrMark) {
-					struct StudentNode* tmp = new StudentNode(); // создали дополнительную временную переменную
-					setElement(j, getElement(j + 1)); // меняем местами
-					setElement(j + 1, tmp); // значения элементов
+					copyDataElement(tmp1, getElement(j));
+					copyDataElement(tmp2, getElement(j + 1));
+					setElement(j + 1, tmp1);
+					setElement(j, tmp2);
+					//copyDataElement(tmp1, getElement(0));
+					//copyDataElement(tmp2, getElement(3));
+					//setElement(3, tmp1);
+					//setElement(0, tmp2);
 				}
 			}
 		}
