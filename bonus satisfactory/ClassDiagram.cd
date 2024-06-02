@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ClassEdit">
+    <Position X="2" Y="0.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAkBEAECIAAAAAAAAAAAAAQQAQACAAAIA=</HashCode>
+      <FileName>ClassEdit.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassFileWraper">
+    <Position X="15.5" Y="0.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAABBAAAAEAACAABACIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassFileWraper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassMenu">
+    <Position X="15.5" Y="3.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAQAgACCAAAAIAEAAqAAIAAAAAAAAABABgAAAgQAQA=</HashCode>
+      <FileName>ClassMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExamsResultsClass">
+    <Position X="2" Y="4.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAACAAQAAAAAABAAEAAQBAACAAA=</HashCode>
+      <FileName>ExamsResultsClass.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StudentClass">
+    <Position X="10.5" Y="0.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAwAAEBBAAAACAIMBBFAAAEAAAAQggAiAAAAA=</HashCode>
+      <FileName>StudentClass.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ExamsRecords">
+    <Position X="6" Y="4.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAwAA=</HashCode>
+      <FileName>ExamsResultsClass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="StudentNode">
+    <Position X="6" Y="0.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>YAAAAAAIgAAAAAAAAAQAAAAQFBAEAAAEgAAAAAIAAAA=</HashCode>
+      <FileName>StudentNode.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
