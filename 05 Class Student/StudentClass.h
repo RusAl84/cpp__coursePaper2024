@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <Windows.h>
-#include "ExamsResultsClass.h"
-#include "ClassFileWraper.h"
-#include "StudentNode.h"
+#include "../03 ExamsResultsClass/ExamsResultsClass.h"
+#include "../07 ClassFileWraper/ClassFileWraper.h"
+#include "../05 Class Student/StudentNode.h"
 
 
 class StudentClass 

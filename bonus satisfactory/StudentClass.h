@@ -548,23 +548,24 @@ public:
 		//https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 		//https://www.geeksforgeeks.org/bubble-sort/
 		int size = countItem;
-		//for (int i = 0; i < size; i++) {
-		//	for (int j = 0; j < size - 1; j++) {
-		//		if (getElement(j)->avrMark > getElement(j + 1)->avrMark) {
-		//			struct StudentNode* tmp = getElement(j); // создали дополнительную временную переменную
-		//			setElement(j, getElement(j + 1)); // меняем местами
-		//			setElement(j + 1, tmp); // значения элементов
-		//		}
-		//	}
-		//}
 		for (int i = 0; i < size; i++) {
-			cout << endl << getElement(i)->surName;
+			for (int j = 0; j < size - 1; j++) {
+				if (getElement(j)->avrMark > getElement(j + 1)->avrMark) {
+					struct StudentNode* tmp = getElement(j); // создали дополнительную временную переменную
+					setElement(j, getElement(j + 1)); // меняем местами
+					setElement(j + 1, tmp); // значения элементов
+				}
+			}
 		}
+		//for (int i = 0; i < size; i++) {
+		//	cout << endl << getElement(i)->surName;
+		//}
 	}
 
 	void printAllSurName_Name_MName_bYaear_AvrMarks() {
 		struct StudentNode* current = myHead;
 		cout << endl;
+
 		while (current) {
 			//cout << " " << current->data;
 			cout << string(current->surName) + " " + string(current->name) + " " + string(current->middleName) + " " + string(current->birthDateString) + " " + to_string(current->avrMark) << endl;
