@@ -134,6 +134,9 @@ public:
 						current->sex = FALSE;
 					cout << line << endl;
 
+					////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 					if (countItem == 0) {
 						newItem->next = NULL;
 						myHead = newItem;
