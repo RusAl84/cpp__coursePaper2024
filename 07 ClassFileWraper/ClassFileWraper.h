@@ -39,6 +39,51 @@ public:
 			}
 			fclose(binaryFile);
 		}
+		else
+		{
+			std::ofstream outFile;          // поток для записи
+			outFile.open(filename, std::ios::app); // окрываем файл для записи
+			// outFile.open(FileName, std::ios::app); // окрываем файл для записи
+			if (outFile.is_open())
+			{
+				while (current) {
+					outFile << current->surName << endl;
+					outFile << current->name << endl;
+					outFile << current->middleName << endl;
+					outFile << current->faculty << endl;
+					outFile << current->department << endl;
+					outFile << current->group << endl;
+					outFile << current->recordCardNumber << endl;
+					string sex = 0;
+					if (current->sex)
+						sex = "1";
+					else
+						sex = "0";
+					outFile << sex << endl;
+					outFile << current->department << endl;
+					outFile << current->group << endl;
+					outFile << current->recordCardNumber << endl;
+					outFile << current->startYear << endl;
+					outFile << current->birthDateString << endl;
+					for (int i = 0; i < sesCount; i++)
+						for (int j = 0; j < namesCount; j++) {
+							if (current->examsRecordsData[i][j].isEmpty)
+							{
+								outFile << "isempty" << endl;
+							}
+							else
+							{
+								outFile << "not_empty" << endl;
+								outFile << current->examsRecordsData[i][j].mark << endl;
+								outFile << current->examsRecordsData[i][j].name << endl;
+							}
+						}
+					outFile << current->avrMark << endl; //!!!!
+					current = current->next;
+				}
+			}
+			outFile.close();
+		}
 	}
 
 	StudentNode* loadData() {

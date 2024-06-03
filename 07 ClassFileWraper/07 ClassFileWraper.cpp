@@ -16,6 +16,7 @@ int main()
 	ClassFileWraper* cfw = new ClassFileWraper();
 	strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
 	cfw->mode = true; // Binary
+	cfw->mode = false; // text
 	StudentClass* st = new StudentClass();
 	StudentNode* sn = new StudentNode();
 	st->addItem();
