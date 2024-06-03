@@ -54,7 +54,7 @@ public:
 					outFile << current->department << endl;
 					outFile << current->group << endl;
 					outFile << current->recordCardNumber << endl;
-					string sex = 0;
+					string sex = "0";
 					if (current->sex)
 						sex = "1";
 					else
@@ -69,13 +69,13 @@ public:
 						for (int j = 0; j < namesCount; j++) {
 							if (current->examsRecordsData[i][j].isEmpty)
 							{
-								outFile << "isempty" << endl;
+								outFile << "empty" << endl;
 							}
 							else
 							{
 								outFile << "not_empty" << endl;
-								outFile << current->examsRecordsData[i][j].mark << endl;
 								outFile << current->examsRecordsData[i][j].name << endl;
+								outFile << current->examsRecordsData[i][j].mark << endl;
 							}
 						}
 					outFile << current->avrMark << endl; //!!!!
@@ -88,12 +88,12 @@ public:
 
 	StudentNode* loadData() {
 		if (fileExists()) {
+			countItem = 0;
+			struct StudentNode* myHead = NULL;
+			struct StudentNode* newItem = new StudentNode();
+			struct StudentNode* current = NULL;
 			if (mode)  //binary
 			{
-				struct StudentNode* myHead = NULL;
-				countItem = 0;
-				struct StudentNode* newItem = new StudentNode();
-				struct StudentNode* current = NULL;
 				FILE* binaryFile;
 				fopen_s(&binaryFile, filename, "r");
 				while (fread_s(newItem, sizeof(StudentNode), sizeof(StudentNode), 1, binaryFile) == 1)
@@ -115,6 +115,41 @@ public:
 				}
 				fclose(binaryFile);
 				return myHead;
+			}
+			else {
+				std::ifstream inFile(filename);
+				string line;
+				while (getline(inFile, line))
+				{
+					strcpy_s(newItem->surName, sizeof(newItem->surName), line.c_str());
+					strcpy_s(newItem->name, sizeof(newItem->name), line.c_str());
+					strcpy_s(newItem->middleName, sizeof(newItem->middleName), line.c_str());
+					strcpy_s(newItem->faculty, sizeof(newItem->faculty), line.c_str());
+					strcpy_s(newItem->department, sizeof(newItem->department), line.c_str());
+					strcpy_s(newItem->group, sizeof(newItem->group), line.c_str());
+					strcpy_s(newItem->recordCardNumber, sizeof(newItem->recordCardNumber), line.c_str());
+					if (strcmp(line.c_str(), "1") == 0)
+						current->sex = TRUE;
+					else 
+						current->sex = FALSE;
+					cout << line << endl;
+
+					if (countItem == 0) {
+						newItem->next = NULL;
+						myHead = newItem;
+					}
+					else {
+						current = myHead;
+						for (int i = 0; i < countItem - 1; i++) {
+							current = current->next;
+						}
+						newItem->next = NULL;
+						current->next = newItem;
+					}
+					countItem++;
+					newItem = new StudentNode();
+				}
+				inFile.close();
 			}
 		}
 	}

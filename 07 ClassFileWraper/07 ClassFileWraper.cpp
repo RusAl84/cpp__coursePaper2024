@@ -15,15 +15,14 @@ int main()
 	cout << "07 ClassFileWraper\n";
 	ClassFileWraper* cfw = new ClassFileWraper();
 	strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
-	cfw->mode = true; // Binary
+	//cfw->mode = true; // Binary
 	cfw->mode = false; // text
-	StudentClass* st = new StudentClass();
-	StudentNode* sn = new StudentNode();
-	st->addItem();
-	st->addItem();
-	st->addItem();
-
-    cfw->saveData(st->myHead);
+	//StudentClass* st = new StudentClass();
+	//StudentNode* sn = new StudentNode();
+	//st->addItem();
+	//st->addItem();
+	//st->addItem();
+ //   cfw->saveData(st->myHead);
 	cfw->loadData();
 }
 
