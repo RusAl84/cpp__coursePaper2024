@@ -60,9 +60,6 @@ public:
 					else
 						sex = "0";
 					outFile << sex << endl;
-					outFile << current->department << endl;
-					outFile << current->group << endl;
-					outFile << current->recordCardNumber << endl;
 					outFile << current->startYear << endl;
 					outFile << current->birthDateString << endl;
 					for (int i = 0; i < sesCount; i++)
@@ -132,10 +129,18 @@ public:
 						current->sex = TRUE;
 					else 
 						current->sex = FALSE;
-					cout << line << endl;
-
-					////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!
-
+					newItem->startYear = atoi(line.c_str());
+					strcpy_s(newItem->birthDateString, sizeof(newItem->birthDateString), line.c_str());
+					for (int i = 0; i < sesCount; i++)
+						for (int j = 0; j < namesCount; j++) {
+							if (strcmp(line.c_str(), "not_empty") == 0)
+							{
+								strcpy_s(newItem->examsRecordsData[i][j].name, sizeof(newItem->examsRecordsData[i][j].name), line.c_str());
+								newItem->examsRecordsData[i][j].mark = atoi(line.c_str());
+							}
+							getline(inFile, line);
+						}
+					newItem->avrMark = atoi(line.c_str()); //!!!!
 
 					if (countItem == 0) {
 						newItem->next = NULL;
