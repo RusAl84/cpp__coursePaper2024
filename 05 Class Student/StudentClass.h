@@ -6,7 +6,7 @@
 #include "../05 Class Student/StudentNode.h"
 #include "../09 ClassCrypt/ClassCrypt.h"
 #include <vector>
-
+#include <algorithm>
 
 class StudentClass 
 {
@@ -222,7 +222,6 @@ public:
 							strcpy_s(sn->examsRecordsData[i][j].name, sizeof(sn->examsRecordsData[i][j].name), erc->data[i][j].name);
 						}
 					}
-
 				break;
 			default:
 				break;
@@ -416,6 +415,9 @@ public:
 		countItem = cfw->countItem;
 		ClassCrypt* pCrypt = new ClassCrypt();
 		vector<int> sessions;
+		ClassMenu* sessionsMenu = new ClassMenu();
+		int resultSessionsMenuItem = 1;
+		const int exitIntSessionsMenuItem = 0;
 		while (resultSelectedItem != exitInt) {
 			mainMenu->run();
 			resultSelectedItem = mainMenu->getSelectedItem();
@@ -523,14 +525,86 @@ public:
 				resultSelectedItem = 0;
 				break;
 			case 9: //Выполнить вариант 01
-				//Отсортировать группу по убыванию успеваемости любой
+				//  Отсортировать группу по убыванию успеваемости любой
 				//	одной или нескольких сессий(в т.ч.м.б.и всех), вводимых по желанию
 				//	пользователя
-				
-				for(int i=0;i<11;i++)
-					sessions.push_back(i);
+				//for(int i=0;i<11;i++)
+				//	sessions.push_back(i);
+				//https://metanit.com/cpp/tutorial/7.2.php?ysclid=lx4uqk89qt478971203
+				sessions.clear();
+				sessionsMenu->addTitleItem("Список студентов");
+				sessionsMenu->eraseTitle();
+				sessionsMenu->addTitleItem("Выберите сесси которые Вас интересуют:");
+				while (resultSessionsMenuItem != exitIntSessionsMenuItem) {
+					sessionsMenu->eraseAll();
+					sessionsMenu->addTitleItem("Выберите сесси которые Вас интересуют:");
+					string str1 = "   Выбраны сессии:";
+					for (int i = 1; i < sesCount + 1; i++) {
+						if (find(sessions.begin(), sessions.end(), i) != sessions.end())
+							str1 += " " + to_string(i);
+					}
 
-
+					sessionsMenu->addTitleItem(str1);
+					sessionsMenu->addItem("Выход");   //0
+					for (int i = 1; i < sesCount + 1; i++) {
+						if (not (find(sessions.begin(), sessions.end(), i) != sessions.end()))
+						sessionsMenu->addItem("Сессия " + std::to_string(i));
+					}
+					sessionsMenu->run();
+					resultSessionsMenuItem = sessionsMenu->getSelectedItem();
+					switch (resultSessionsMenuItem) {
+						case 0:
+							// выход
+							resultSessionsMenuItem = exitIntSessionsMenuItem;
+							break;
+						case 1:
+							sessions.push_back(1);
+							resultSessionsMenuItem = 1;
+							break;
+						case 2:
+							sessions.push_back(2);
+							resultSessionsMenuItem = 1;
+							break;
+						case 3:
+							sessions.push_back(3);
+							resultSessionsMenuItem = 3;
+							break;
+						case 4:
+							sessions.push_back(4);
+							resultSessionsMenuItem = 1;
+							break;
+						case 5:
+							sessions.push_back(5);
+							resultSessionsMenuItem = 1;
+							break;
+						case 6:
+							sessions.push_back(6);
+							resultSessionsMenuItem = 1;
+							break;
+						case 7:
+							sessions.push_back(7);
+							resultSessionsMenuItem = 1;
+							break;
+						case 8:
+							sessions.push_back(8);
+							resultSessionsMenuItem = 1;
+							break;
+						case 9:
+							sessions.push_back(9);
+							resultSessionsMenuItem = 1;
+							break;
+						case 10:
+							sessions.push_back(10);
+							resultSessionsMenuItem = 1;
+							break;
+						case 11:
+							sessions.push_back(11);
+							resultSessionsMenuItem = 1;
+							break;
+						default:
+							break;
+					}
+				}
 				//processingAvrMarks();
 				//sort();
 				//printAllSurName_Name_MName_bYaear_AvrMarks();
