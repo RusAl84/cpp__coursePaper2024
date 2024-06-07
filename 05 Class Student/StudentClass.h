@@ -4,6 +4,7 @@
 #include "../03 ExamsResultsClass/ExamsResultsClass.h"
 #include "../07 ClassFileWraper/ClassFileWraper.h"
 #include "../05 Class Student/StudentNode.h"
+#include "../09 ClassCrypt/ClassCrypt.h"
 
 
 class StudentClass 
@@ -386,7 +387,9 @@ public:
 		mainMenu->addItem("Загрузить студентов из файла БД (текстовый формат)"); //3
 		mainMenu->addItem("Сохранить БД студентов в файл (бинарный формат)"); //4
 		mainMenu->addItem("Сохранить БД студентов в файл (текстовый формат)"); //5
-		mainMenu->addItem("Выполнить вариант XX"); //6
+		mainMenu->addItem("Зашифровать БД студентов (текстовый формат)"); //6
+		mainMenu->addItem("Расшифровать БД студентов (текстовый формат)"); //7
+		mainMenu->addItem("Выполнить вариант XX"); //8
 		mainMenu->addItem("Выход"); //7
 		int resultSelectedItem = 0;
 		int exitInt = 4;
@@ -469,38 +472,48 @@ public:
 				break;
 			case 1: //Добавить студента
 				addItem();
+				resultSelectedItem = 0;
 				break;
 			case 2: //Загрузить студентов из файла БД (бинарный формат)
 				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
 				cfw->mode = true; // Binary 
 				this->myHead = cfw->loadData();  //todo delete memory leak
 				countItem = cfw->countItem;
+				resultSelectedItem = 0;
 				break;
 			case 3: //Загрузить студентов из файла БД (текстовый формат)
 				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
 				cfw->mode = false; // Text 
 				this->myHead = cfw->loadData();  //todo delete memory leak
 				countItem = cfw->countItem;
+				resultSelectedItem = 0;
 				break;
 			case 4: //Сохранить БД студентов в файл (бинарный формат)
 				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
 				cfw->mode = true; // Binary 
 				cfw->saveData(myHead);
-				resultSelectedItem = exitInt - 1;
+				resultSelectedItem = 0;
 				break;
 			case 5: //Сохранить БД студентов в файл (тестовый формат)
 				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
 				cfw->mode = false; // Text 
 				cfw->saveData(myHead);
+				resultSelectedItem = 0;
 				break;
-			case 6: //Выполнить вариант XX (простая сортировка)
+			case 6: //Сохранить БД студентов в файл (тестовый формат)
+				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
+				break;
+			case 7: //Сохранить БД студентов в файл (тестовый формат)
+				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
+				break;
+			case 8: //Выполнить вариант XX (простая сортировка)
 				processingAvrMarks();
 				sort();
 				printAllSurName_Name_MName_bYaear_AvrMarks();
 				_getch();
 				resultSelectedItem = 0;
 				break;
-			case 7:
+			case 9:
 				resultSelectedItem = exitInt;
 				break;
 			default:

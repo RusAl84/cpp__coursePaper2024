@@ -139,6 +139,7 @@
     <ClInclude Include="..\05 Class Student\StudentClass.h" />
     <ClInclude Include="..\05 Class Student\StudentNode.h" />
     <ClInclude Include="..\07 ClassFileWraper\ClassFileWraper.h" />
+    <ClInclude Include="..\09 ClassCrypt\ClassCrypt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

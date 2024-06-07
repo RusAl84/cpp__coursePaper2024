@@ -41,5 +41,8 @@
     <ClInclude Include="..\01 EditData\ClassEdit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\09 ClassCrypt\ClassCrypt.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
