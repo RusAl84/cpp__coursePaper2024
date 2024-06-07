@@ -119,26 +119,41 @@ public:
 				while (getline(inFile, line))
 				{
 					strcpy_s(newItem->surName, sizeof(newItem->surName), line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->name, sizeof(newItem->name), line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->middleName, sizeof(newItem->middleName), line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->faculty, sizeof(newItem->faculty), line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->department, sizeof(newItem->department), line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->group, sizeof(newItem->group), line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->recordCardNumber, sizeof(newItem->recordCardNumber), line.c_str());
+					getline(inFile, line);
 					if (strcmp(line.c_str(), "1") == 0)
-						current->sex = TRUE;
+						newItem->sex = 1;
 					else 
-						current->sex = FALSE;
+						newItem->sex = 0;
+					getline(inFile, line);
 					newItem->startYear = atoi(line.c_str());
+					getline(inFile, line);
 					strcpy_s(newItem->birthDateString, sizeof(newItem->birthDateString), line.c_str());
 					for (int i = 0; i < sesCount; i++)
 						for (int j = 0; j < namesCount; j++) {
+							getline(inFile, line);
 							if (strcmp(line.c_str(), "not_empty") == 0)
 							{
+								newItem->examsRecordsData[i][j].isEmpty = 0;
 								strcpy_s(newItem->examsRecordsData[i][j].name, sizeof(newItem->examsRecordsData[i][j].name), line.c_str());
+								getline(inFile, line);
 								newItem->examsRecordsData[i][j].mark = atoi(line.c_str());
 							}
-							getline(inFile, line);
+							else
+							{
+								newItem->examsRecordsData[i][j].isEmpty = 1;
+							}	
 						}
 					newItem->avrMark = atoi(line.c_str()); //!!!!
 
