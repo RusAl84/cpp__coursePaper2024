@@ -486,6 +486,7 @@ public:
 				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
 				cfw->mode = true; // Binary 
 				cfw->saveData(myHead);
+				resultSelectedItem = exitInt - 1;
 				break;
 			case 5: //Сохранить БД студентов в файл (тестовый формат)
 				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
