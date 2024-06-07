@@ -412,7 +412,7 @@ public:
 		cfw->mode = true; // Binary     
 		this->myHead = cfw->loadData();
 		countItem = cfw->countItem;
-		//sort
+		ClassCrypt* pCrypt = new ClassCrypt();
 		while (resultSelectedItem != exitInt) {
 			mainMenu->run();
 			resultSelectedItem = mainMenu->getSelectedItem();
@@ -500,11 +500,17 @@ public:
 				cfw->saveData(myHead);
 				resultSelectedItem = 0;
 				break;
-			case 6: //Сохранить БД студентов в файл (тестовый формат)
-				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
+			case 6: //Зашифровать БД студентов (текстовый формат)
+				pCrypt->db_filename = "dataText.txt";
+				pCrypt->secure_db_filename = "secure_dataText.txt";
+				pCrypt->Crypt();
+				resultSelectedItem = 0;
 				break;
-			case 7: //Сохранить БД студентов в файл (тестовый формат)
-				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
+			case 7: //Расшифровать БД студентов (текстовый формат)
+				pCrypt->db_filename = "dataText.txt";
+				pCrypt->secure_db_filename = "secure_dataText.txt";
+				pCrypt->Decrypt();
+				resultSelectedItem = 0;
 				break;
 			case 8: //Выполнить вариант XX (простая сортировка)
 				processingAvrMarks();
