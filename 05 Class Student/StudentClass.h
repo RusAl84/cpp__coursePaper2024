@@ -389,7 +389,8 @@ public:
 		mainMenu->addItem("Сохранить БД студентов в файл (текстовый формат)"); //5
 		mainMenu->addItem("Зашифровать БД студентов (текстовый формат)"); //6
 		mainMenu->addItem("Расшифровать БД студентов (текстовый формат)"); //7
-		mainMenu->addItem("Выполнить вариант XX"); //8
+		mainMenu->addItem("Выполнить вариант XX простая сортировка по среднему баллу"); //8
+		mainMenu->addItem("Выполнить вариант 01"); //8
 		mainMenu->addItem("Выход"); //7
 		int resultSelectedItem = 0;
 		int exitInt = 4;
@@ -512,14 +513,24 @@ public:
 				pCrypt->Decrypt();
 				resultSelectedItem = 0;
 				break;
-			case 8: //Выполнить вариант XX (простая сортировка)
+			case 8: //Выполнить вариант XX простая сортировка по среднему баллу
 				processingAvrMarks();
 				sort();
 				printAllSurName_Name_MName_bYaear_AvrMarks();
 				_getch();
 				resultSelectedItem = 0;
 				break;
-			case 9:
+			case 9: //Выполнить вариант 01
+				//Отсортировать группу по убыванию успеваемости любой
+				//	одной или нескольких сессий(в т.ч.м.б.и всех), вводимых по желанию
+				//	пользователя
+				processingAvrMarks();
+				sort();
+				printAllSurName_Name_MName_bYaear_AvrMarks();
+				_getch();
+				resultSelectedItem = 0;
+				break;
+			case 10:
 				resultSelectedItem = exitInt;
 				break;
 			default:
