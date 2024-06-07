@@ -312,7 +312,6 @@ public:
 		}
 	}
 
-
 	void editItem(int index) {
 		if (index >= 0 and index < countItem and countItem>0) {
 			struct StudentNode* current = myHead;
@@ -378,18 +377,17 @@ public:
 
 
 
-	//
-
-
 	void mainMenu() {
 		ClassMenu* mainMenu = new ClassMenu();
 		mainMenu->addTitleItem("Главное меню");
 		mainMenu->addItem("Просмотреть список студетов (удалить или изменить данные)"); //0
 		mainMenu->addItem("Добавить данные о студенте в БД"); //1
-		mainMenu->addItem("Загрузить студентов из файла БД"); //2
-		mainMenu->addItem("Сохранить БД студентов в файл"); //3
-		mainMenu->addItem("Выполнить вариант XX"); //4
-		mainMenu->addItem("Выход"); //5
+		mainMenu->addItem("Загрузить студентов из файла БД (бинарный формат)"); //2
+		mainMenu->addItem("Загрузить студентов из файла БД (текстовый формат)"); //3
+		mainMenu->addItem("Сохранить БД студентов в файл (бинарный формат)"); //4
+		mainMenu->addItem("Сохранить БД студентов в файл (текстовый формат)"); //5
+		mainMenu->addItem("Выполнить вариант XX"); //6
+		mainMenu->addItem("Выход"); //7
 		int resultSelectedItem = 0;
 		int exitInt = 4;
 		ClassMenu* studentsMenu = new ClassMenu();
@@ -408,7 +406,7 @@ public:
 		//sort
 		ClassFileWraper* cfw = new ClassFileWraper();
 		strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
-		cfw->mode = true; // Binary     //!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		cfw->mode = true; // Binary     
 		this->myHead = cfw->loadData();
 		countItem = cfw->countItem;
 		//sort
@@ -472,23 +470,36 @@ public:
 			case 1: //Добавить студента
 				addItem();
 				break;
-			case 2: //Загрузить студентов из файла БД
-				//sort 
+			case 2: //Загрузить студентов из файла БД (бинарный формат)
+				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
+				cfw->mode = true; // Binary 
 				this->myHead = cfw->loadData();  //todo delete memory leak
 				countItem = cfw->countItem;
 				break;
-			case 3: //Сохранить БД студентов в файл
-				//sort
+			case 3: //Загрузить студентов из файла БД (текстовый формат)
+				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
+				cfw->mode = false; // Text 
+				this->myHead = cfw->loadData();  //todo delete memory leak
+				countItem = cfw->countItem;
+				break;
+			case 4: //Сохранить БД студентов в файл (бинарный формат)
+				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataBinary.txt");
+				cfw->mode = true; // Binary 
 				cfw->saveData(myHead);
 				break;
-			case 4: //Выполнить вариант XX
+			case 5: //Сохранить БД студентов в файл (тестовый формат)
+				strcpy_s(cfw->filename, sizeof(cfw->filename), "dataText.txt");
+				cfw->mode = false; // Text 
+				cfw->saveData(myHead);
+				break;
+			case 6: //Выполнить вариант XX (простая сортировка)
 				processingAvrMarks();
 				sort();
 				printAllSurName_Name_MName_bYaear_AvrMarks();
 				_getch();
 				resultSelectedItem = 0;
 				break;
-			case 5:
+			case 7:
 				resultSelectedItem = exitInt;
 				break;
 			default:
