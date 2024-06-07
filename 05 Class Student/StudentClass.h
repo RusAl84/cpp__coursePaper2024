@@ -5,6 +5,7 @@
 #include "../07 ClassFileWraper/ClassFileWraper.h"
 #include "../05 Class Student/StudentNode.h"
 #include "../09 ClassCrypt/ClassCrypt.h"
+#include <vector>
 
 
 class StudentClass 
@@ -414,6 +415,7 @@ public:
 		this->myHead = cfw->loadData();
 		countItem = cfw->countItem;
 		ClassCrypt* pCrypt = new ClassCrypt();
+		vector<int> sessions;
 		while (resultSelectedItem != exitInt) {
 			mainMenu->run();
 			resultSelectedItem = mainMenu->getSelectedItem();
@@ -524,10 +526,15 @@ public:
 				//Отсортировать группу по убыванию успеваемости любой
 				//	одной или нескольких сессий(в т.ч.м.б.и всех), вводимых по желанию
 				//	пользователя
-				processingAvrMarks();
-				sort();
-				printAllSurName_Name_MName_bYaear_AvrMarks();
-				_getch();
+				
+				for(int i=0;i<11;i++)
+					sessions.push_back(i);
+
+
+				//processingAvrMarks();
+				//sort();
+				//printAllSurName_Name_MName_bYaear_AvrMarks();
+				//_getch();
 				resultSelectedItem = 0;
 				break;
 			case 10:

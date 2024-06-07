@@ -146,6 +146,7 @@ public:
 							if (strcmp(line.c_str(), "not_empty") == 0)
 							{
 								newItem->examsRecordsData[i][j].isEmpty = 0;
+								getline(inFile, line);
 								strcpy_s(newItem->examsRecordsData[i][j].name, sizeof(newItem->examsRecordsData[i][j].name), line.c_str());
 								getline(inFile, line);
 								newItem->examsRecordsData[i][j].mark = atoi(line.c_str());
@@ -154,9 +155,11 @@ public:
 							{
 								newItem->examsRecordsData[i][j].isEmpty = 1;
 							}	
+							//cout << endl << "i= " << i << " j= " << j;
 						}
+					getline(inFile, line);
 					newItem->avrMark = atoi(line.c_str()); //!!!!
-
+					//_getch();
 					if (countItem == 0) {
 						newItem->next = NULL;
 						myHead = newItem;
@@ -173,6 +176,7 @@ public:
 					newItem = new StudentNode();
 				}
 				inFile.close();
+				return myHead;
 			}
 		}
 	}
