@@ -248,6 +248,24 @@ public:
 		return avr;
 	}
 
+	double getAvrMarks(StudentNode* sn, vector <int> check_sessions) {
+		double sum = 0;
+		double count = 0;
+		for (int i = 0; i < check_sessions.size(); i++)
+		{ 
+			int  z = check_sessions[i];
+			for (int j = 0; j < 10; j++)
+				if (sn->examsRecordsData[z][j].isEmpty == false and sn->examsRecordsData[z][j].mark > 1) {
+					sum = sum + sn->examsRecordsData[z][j].mark;
+					count++;
+				}
+		}
+		int avr = 0;
+		if (count > 0)
+			avr = sum / count;
+		return avr;
+	}
+
 	double getMarks45(StudentNode* sn) {
 		double sum = 0;
 		double count = 0;
@@ -559,10 +577,10 @@ public:
 					}
 
 				}
-				//processingAvrMarks();
-				//sort();
-				//printAllSurName_Name_MName_bYaear_AvrMarks();
-				//_getch();
+				processingAvrMarks(check_sessions);
+				sort();
+				printAllSurName_Name_MName_bYaear_AvrMarks();
+				_getch();
 				resultSessionsMenuItem = 1;
 				resultSelectedItem = 0;
 				break;
@@ -581,6 +599,13 @@ public:
 		struct StudentNode* current = myHead;
 		while (current) {
 			current->avrMark = getAvrMarks(current);
+			current = current->next;
+		}
+	}	
+	void processingAvrMarks(vector <int> check_sessions) {
+		struct StudentNode* current = myHead;
+		while (current) {
+			current->avrMark = getAvrMarks(current, check_sessions);
 			current = current->next;
 		}
 	}
